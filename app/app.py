@@ -1,6 +1,6 @@
 from flask import Flask
 
-app = Flask(__name__, template_folder="views")
+app = Flask(__name__)
 
 @app.route("/")
 def hello():
@@ -8,7 +8,7 @@ def hello():
  
 @app.route("/test")   
 def test():
-    return render_template("views/test.html")
+    return render_template("test.html")
 
 if __name__ == "__main__":
     app.run()
