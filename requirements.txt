@@ -3,3 +3,4 @@ peewee==2.7.4
 flask==0.10.1
 MySQL-python==1.2.5
 BeautifulSoup==3.2.1
+apscheduler==3.0.3
