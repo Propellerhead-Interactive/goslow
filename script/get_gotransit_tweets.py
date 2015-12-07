@@ -34,6 +34,8 @@ def main():
       while count < 17:
         print "Loading DB with 200 tweets..."
         more_statuses = api.GetUserTimeline(screen_name="gotransit",count=200*count, max_id=oldest_tweet)
+        if count > 1:
+          more_statuses.pop(0)
         oldest_tweet = more_statuses[-1].id
         statuses += more_statuses
         count += 1
