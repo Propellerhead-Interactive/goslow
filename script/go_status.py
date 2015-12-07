@@ -1,15 +1,13 @@
-import urllib2
+import urllib2, sys
 from BeautifulSoup import BeautifulSoup
+from peewee import SQL
+sys.path.insert(0, 'app/model/')
+from  models import TrainRoute, Status
 
-import sys
-sys.path.append( '../app/model/')
-import models
 
-
-def write_data(_name, _status):
-    route = TrainRoute(name=_name)
-    route.save()
-    status = Status(route=route, status = _status)
+def write_data(route, _status):
+   
+    status = Status(route=route, message = _status)
     status.save()
 
 def crawl_status():
@@ -27,14 +25,14 @@ def crawl_status():
         cells = row.findAll("td", text=True)
         route = cells[0]
         status = cells[1]
-        print str(route) + " - "+  str(status)
-        write_data(route, status)
-     
-def crawl_routes():
-      
-    
-    
-crawl_routes()
+        print "SCAPE " + str(route) + " - "+  str(status)
+        r_id = 0
+        for route in TrainRoute.select().where(SQL("route_time > NOW() and route_name=%s ", route)).order_by(TrainRoute.route_time):
+            print "Found route: " + route.route_name, route.route_time  # .raw() will return model insta
+            write_data(route, status)
+            break;
+       
+
 crawl_status()
 
 

@@ -1,13 +1,13 @@
 import urllib2
 import json
-from  models import TrainRoute, db
+from  models import TrainRoute, db, Status
 from BeautifulSoup import BeautifulSoup
 
 
 def setupTables():
     db.connect()
     db.create_tables([TrainRoute], safe=True)
-    #db.create_tables([Status], safe=True)
+    db.create_tables([Status], safe=True)
     db.commit()
     
 def get_routes():
