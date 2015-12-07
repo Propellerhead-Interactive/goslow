@@ -1,14 +1,16 @@
 from flask import Flask
+from flask import render_template
 
-app = Flask(__name__, template_folder="views")
+app = Flask(__name__)
+app.config.update(
+    DEBUG=True,
+    use_reloader=True
+)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
- 
-@app.route("/test")   
-def test():
-    return render_template("views/test.html")
+    
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run()

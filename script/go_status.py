@@ -5,13 +5,15 @@ import sys
 sys.path.append( '../app/model/')
 import models
 
-src='http://www.gotransit.com/publicroot/en/default.aspx'
 
-def write_data(_name):
+def write_data(_name, _status):
     route = TrainRoute(name=_name)
     route.save()
+    status = Status(route=route, status = _status)
+    status.save()
 
-def crawl():
+def crawl_status():
+    src='http://www.gotransit.com/publicroot/en/default.aspx'
     page = urllib2.urlopen(src)
     soup = BeautifulSoup(page)
     crawl_list = []
@@ -26,10 +28,15 @@ def crawl():
         route = cells[0]
         status = cells[1]
         print str(route) + " - "+  str(status)
-        write_data(route)
-        
+        write_data(route, status)
+     
+def crawl_routes():
+      
     
-crawl()
+    
+crawl_routes()
+crawl_status()
+
 
 
     

@@ -9,18 +9,17 @@ class BaseModel(peewee.Model):
         database = db
 
 class TrainRoute(BaseModel):
-    name = TextField()
+    route_name = TextField()
+    route_id = IntegerField()
+    route_time = TimeField()
     
 class Status(BaseModel):
     route = ForeignKeyField(TrainRoute, related_name='train_routes')
-    title = TextField()
+    message = TextField()
     created_at = DateTimeField(default=datetime.datetime.now)
     
     
-def main():
-    db.connect()
-    db.create_tables([TrainRoute, Status])
-    db.commit()
+
   
-main()
+
             
