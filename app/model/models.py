@@ -19,7 +19,8 @@ class Status(BaseModel):
     
 def main():
     db.connect()
-    db.create_tables([TrainRoute, Status])
+    db.create_tables([TrainRoute])
+    db.create_tables([Status])
     db.commit()
   
 main()

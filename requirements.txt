@@ -1,3 +1,4 @@
 python-twitter==2.2
 peewee==2.7.4
 flask==0.10.1
+BeautifulSoup=3.2.1
