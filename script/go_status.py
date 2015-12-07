@@ -6,7 +6,6 @@ from  models import TrainRoute, Status
 
 
 def write_data(route, _status):
-   
     status = Status(route=route, message = _status)
     status.save()
 
