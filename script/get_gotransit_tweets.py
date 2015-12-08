@@ -54,7 +54,9 @@ def main():
 
     storeStatuses(statuses)
     db.commit()
-  
+
+main()
+
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.add_job(main, 'interval', seconds=600)

@@ -26,6 +26,8 @@ def hello():
     words['switch'] = Tweet.select().where(Tweet.content.contains('switch')).count()
     words['problem'] = Tweet.select().where(Tweet.content.contains('problem')).count()
     words['issue'] = Tweet.select().where(Tweet.content.contains('issue')).count()
+    words['cancel'] = Tweet.select().where(Tweet.content.contains('cancel')).count()
+    words['oos'] = Tweet.select().where(Tweet.content.contains('out of service')).count()
     
     return render_template("index.html", words=words)
 

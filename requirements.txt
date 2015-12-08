@@ -4,3 +4,5 @@ flask==0.10.1
 MySQL-python==1.2.5
 BeautifulSoup==3.2.1
 apscheduler==3.0.3
+nltk==3.0
+splinter==0.7.3
