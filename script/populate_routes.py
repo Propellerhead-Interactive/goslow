@@ -26,8 +26,6 @@ def get_routes():
             route_id = route["trip"]["id"]
             route_name = route["trip"]["name"]
             route_time = route["trip"]["time"]
-            
-            print route_id, route_name, route_time
             route = TrainRoute.get_or_create(route_name=route_name, route_id = route_id, route_time = route_time)
            
 get_routes()

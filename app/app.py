@@ -2,8 +2,11 @@ import sys
 from flask import Flask
 from flask import render_template
 import sys
-sys.path.append( '../app/model/')
+sys.path.append( 'app/model/')
+sys.path.append( 'app/helper/')
+
 from models import Tweet, db
+from utils import Utils
 
 sys.path.insert(0, 'app/model/')
 from models import TrainRoute, Status
@@ -26,10 +29,10 @@ def hello():
     
     return render_template("index.html", words=words)
 
-@app.route("/schedule")
-def delays():
-    schedule = Status.get()
-    return render_template("delays.html", items=schedule)
+@app.route("/word_fun")
+def wordfun():
+    items = Utils.frequent_words(20)
+    return render_template("delays.html", items=items)
 
 if __name__ == "__main__":
     app.run()

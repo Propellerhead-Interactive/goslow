@@ -23,3 +23,6 @@ class Tweet(BaseModel):
     tweet_id = TextField()
     tweet_time = TextField()
     at_reply = BooleanField(default=True)
+    author = TextField() 
+    sentiment = IntegerField()
+    sentiment_level = DecimalField()
