@@ -4,10 +4,12 @@ import re
 sys.path.append( 'app/model/')
 from models import Tweet, db
 import twitter
+import time
+import os
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # Twitter Logic
-api = twitter.Api(consumer_key='zKWUxAituSEtELXZTUFZIpvN6',consumer_secret='DLtc8CJMCkGMHEChhwuEjuXM7OH0WzaJhZ1XyTSTPr7gxvnelz',access_token_key='11184792-wo0VQ63FhjVOsOgs28Mqk77CH73PB2KShCP8DwBKF',access_token_secret='PSAaONv8W7S8HJKWUMxappcr3khcAV2nlQfJPjzm5iZbN')
-
 def storeStatuses(st):
   if st:
     print "Added " + str(len(st)) + " new records."
@@ -26,6 +28,8 @@ def clean(text):
     return filter(lambda x: x in string.printable, text)
 
 def main():
+    api = twitter.Api(consumer_key='zKWUxAituSEtELXZTUFZIpvN6',consumer_secret='DLtc8CJMCkGMHEChhwuEjuXM7OH0WzaJhZ1XyTSTPr7gxvnelz',access_token_key='11184792-wo0VQ63FhjVOsOgs28Mqk77CH73PB2KShCP8DwBKF',access_token_secret='PSAaONv8W7S8HJKWUMxappcr3khcAV2nlQfJPjzm5iZbN')
+
     db.connect()
     db.create_tables([Tweet], safe=True) 
 
@@ -49,4 +53,15 @@ def main():
     storeStatuses(statuses)
     db.commit()
   
-main()
+if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(main, 'interval', seconds=600)
+    scheduler.start()
+    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+
+    try:
+        # This is here to simulate application activity (which keeps the main thread alive).
+        while True:
+            time.sleep(2)
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()  # Not strictly necessary if daemonic mode is enabled but should be done if possible
