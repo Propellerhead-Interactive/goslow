@@ -6,11 +6,12 @@ sys.path.append( 'app/model/')
 from models import Tweet, db
 from peewee import SQL
 
-
 class Utils:
     @staticmethod
     def frequent_words(count):
-        stop = stopwords.words('english')
+        go_stop = [u'https', u'go', u'gobus', u'station', u'hi', u'we', u'train', u'us']
+        stop = stopwords.words('english') + go_stop
+        s_stop = [str(w) for w in stop]
         punct = ['!',':','@', '']
         tknzr = RegexpTokenizer(r'\w+')
         all_words = []
