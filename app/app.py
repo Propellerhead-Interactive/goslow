@@ -1,5 +1,5 @@
 import sys
-from flask import Flask
+from flask import Flask, jsonify
 from flask import render_template
 import sys
 sys.path.append( 'app/model/')
@@ -35,6 +35,10 @@ def hello():
 def wordfun():
     items = Utils.frequent_words(20)
     return render_template("delays.html", items=items)
+    
+@app.route("/api")
+def api():
+    return jsonify({"message":"usage:TBD"})
 
 if __name__ == "__main__":
     app.run()

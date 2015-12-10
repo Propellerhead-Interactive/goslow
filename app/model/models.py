@@ -2,26 +2,15 @@ import peewee
 from peewee import *
 import datetime
 
-db = MySQLDatabase('goslow', user='goslow',passwd='goslow1!23', host='192.168.0.147')
-db_gtfs = MySQLDatabase('gtfs', user='root',passwd='')
+#db = MySQLDatabase('goslow', user='goslow',passwd='goslow1!23', host='192.168.0.147')
+db = MySQLDatabase('goslow', user='root',passwd='')
 
 class BaseModel(peewee.Model):
     class Meta:
         database = db
 
-class GTFSModel(peewee.Model):
-    class Meta:
-        database = db_gtfs
 
-class TrainRoute(BaseModel):
-    route_name = TextField()
-    route_id = IntegerField()
-    route_time = TimeField()
 
-class Status(BaseModel):
-    route = ForeignKeyField(TrainRoute, related_name='train_routes')
-    message = TextField()
-    created_at = DateTimeField(default=datetime.datetime.now)
 
 class Tweet(BaseModel):
     content = TextField()
@@ -32,24 +21,24 @@ class Tweet(BaseModel):
     sentiment = IntegerField()
     sentiment_level = DecimalField()
 
-class CalendarDates(GTFSModel):
+class CalendarDates(BaseModel):
     service_id = TextField()
     date = TextField()
 
     class Meta:
         db_table = 'calendar_dates'
 
-class Routes(GTFSModel):
+class Routes(BaseModel):
     route_id = TextField(primary_key=True)
     route_short_name = TextField()
     route_long_name = TextField()
     route_type = IntegerField()
 
-class Stops(GTFSModel):
+class Stops(BaseModel):
     stop_id = TextField(primary_key=True)
     stop_name = TextField()
 
-class StopTimes(GTFSModel):
+class StopTimes(BaseModel):
     trip_id = TextField()
     arrival_time = TextField()
     departure_time = TextField()
@@ -59,8 +48,14 @@ class StopTimes(GTFSModel):
     class Meta:
         db_table = 'stop_times'
 
-class Trips(GTFSModel):
+class Trips(BaseModel):
     route_id = TextField()
     service_id = TextField()
     trip_id = TextField(primary_key=True)
     direction_id = IntegerField()
+    
+class Status(BaseModel):
+    route = ForeignKeyField(Routes, related_name='routes')
+    message = TextField()
+    trip = ForeignKeyField(Trips, related_name='trips')
+    created_at = DateTimeField(default=datetime.datetime.now)
