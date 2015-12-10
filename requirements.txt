@@ -6,3 +6,4 @@ BeautifulSoup==3.2.1
 apscheduler==3.0.3
 nltk==3.0
 splinter==0.7.3
+selenium==2.0
