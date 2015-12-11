@@ -100,6 +100,15 @@ def all_stops(systemID):
         all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })
 
+#Lists all destination stations from origin station
+@app.route("/api/<systemID>/stops/<from_station>",methods = ['GET'])
+def all_stops_from_origin(systemID, from_station):
+    s = TrainSearch.get_stops_from_origin(from_station) #request.data
+    all_r = []
+    for rr in s:
+        all_r.append(model_to_dict(rr))
+    return jsonify({"routes":all_r })
+
 if __name__ == "__main__":
     app.run()
 
