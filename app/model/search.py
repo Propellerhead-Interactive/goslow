@@ -3,12 +3,11 @@ from models import *
 class TrainSearch:
     @staticmethod
     def find_closest(lat, lon):
-        stops=  Stops.raw("SELECT stop_id, stop_name, stop_lat, stop_lon, SQRT(POW(69.1 * (stop_lat - %s), 2) +POW(69.1 * (%s - stop_lon) * COS(stop_lat / 57.3), 2)) AS distance FROM stops HAVING distance < 10 ORDER BY distance", lat,lon )
+        stops=  Stops.raw("SELECT stops.stop_id, stops.stop_name, stops.stop_lat, stops.stop_lon, SQRT(POW(69.1 * (stop_lat - %s), 2) +POW(69.1 * (%s - stop_lon) * COS(stop_lat / 57.3), 2)) AS distance FROM stops inner join stop_times on (stop_times.stop_id = stops.stop_id)  \
+        inner join trips on (trips.trip_id = stop_times.trip_id) inner join routes on (routes.route_id=trips.route_id) where routes.route_type=2 HAVING distance < 10 ORDER BY distance", lat, lon)
         for stop in stops:
             return stop
             break
-    
-    
     
     
     @staticmethod
