@@ -15,7 +15,7 @@ class TrainSearch:
     def find_route(start_text, end_text):
         start_id=None
         end_id=None
-        stations = Stops.select().join(StopTimes, on=(StopTimes.stop_id == Stops.stop_id)).join(Trips, on=(Trips.trip_id == StopTimes.trip_id)).join(Routes, on=(Routes.route_id==Trips.route_id)).where(Routes.route_type==2).group_by(Stops)
+        stations = self.get_stops()
         for s in stations:
             print s.stop_name
             if start_text.lower().strip()==s.stop_name.lower().strip():
@@ -31,3 +31,7 @@ class TrainSearch:
             return "Could not find to station: " + end_text
             
         return "found!"
+
+    @staticmethod
+    def get_stops():
+        return Stops.select(Stops).join(StopTimes).join(Trips).join(Routes).where(Routes.route_type == 2).group_by(Stops)

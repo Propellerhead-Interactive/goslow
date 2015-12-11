@@ -42,7 +42,7 @@ def wordfun():
 def api():
     return jsonify({"message":"usage:TBD"})
 
-#shows all the routes for the tiven system
+#shows all the routes for the given system
 @app.route("/api/<systemID>/routes",methods = ['GET'])
 def all_routes(systemID):
     r = Routes.select().where(Routes.route_type==2)
@@ -51,7 +51,7 @@ def all_routes(systemID):
         all_r.append(model_to_dict(rr))
     return jsonify({"routes":json.dumps(all_r) })
 
-#shows a single route for the tiven system
+#shows a single route for the given system
 @app.route("/api/<systemID>/routes/<routeID>",methods = ['GET'])
 def the_routes(systemID,routeID):
     r = Routes.select().where(Routes.route_type==2).where(Routes.route_id==routeID)
@@ -90,8 +90,15 @@ def the_route_search(systemID,from_station,to_station):
     s = TrainSearch.find_route(from_station, to_station)
     #request.data
     return jsonify({"message":s})
-    
 
+#Lists all train stations
+@app.route("/api/<systemID>/stops",methods = ['GET'])
+def all_stops(systemID):
+    s = TrainSearch.get_stops() #request.data
+    all_r = []
+    for rr in s:
+        all_r.append(model_to_dict(rr))
+    return jsonify({"routes":all_r })
 
 if __name__ == "__main__":
     app.run()
