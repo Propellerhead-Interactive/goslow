@@ -31,25 +31,25 @@ class Routes(BaseModel):
     route_long_name = TextField()
     route_type = IntegerField()
 
+class Trips(BaseModel):
+    route = ForeignKeyField(Routes, related_name='routeid')
+    service_id = TextField()
+    trip_id = TextField(primary_key=True)
+    direction_id = IntegerField()
+
 class Stops(BaseModel):
     stop_id = TextField(primary_key=True)
     stop_name = TextField()
 
 class StopTimes(BaseModel):
-    trip_id = TextField()
+    trip = ForeignKeyField(Trips, related_name='tripid')
     arrival_time = TextField()
     departure_time = TextField()
-    stop_id = TextField()
+    stop = ForeignKeyField(Stops, related_name='stops')
     stop_sequence = IntegerField()
 
     class Meta:
         db_table = 'stop_times'
-
-class Trips(BaseModel):
-    route_id = TextField()
-    service_id = TextField()
-    trip_id = TextField(primary_key=True)
-    direction_id = IntegerField()
     
 class Status(BaseModel):
     route = ForeignKeyField(Routes, related_name='routes')
