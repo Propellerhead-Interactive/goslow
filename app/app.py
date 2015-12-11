@@ -106,7 +106,8 @@ def all_stops_from_origin(systemID, from_station):
     s = TrainSearch.get_stops_from_origin(from_station) #request.data
     all_r = []
     for rr in s:
-        all_r.append(model_to_dict(rr))
+        if rr.stop_name.lower() != from_station.lower():
+            all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })
 
 if __name__ == "__main__":
