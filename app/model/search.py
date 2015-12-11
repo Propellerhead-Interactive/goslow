@@ -1,4 +1,5 @@
 from models import *
+from playhouse.shortcuts import *
 
 class TrainSearch:
     @staticmethod
@@ -6,7 +7,7 @@ class TrainSearch:
         stops=  Stops.raw("SELECT stops.*, SQRT(POW(69.1 * (stop_lat - %s), 2) +POW(69.1 * (%s - stop_lon) * COS(stop_lat / 57.3), 2)) AS distance FROM stops inner join stop_times on (stop_times.stop_id = stops.stop_id)  \
         inner join trips on (trips.trip_id = stop_times.trip_id) inner join routes on (routes.route_id=trips.route_id) where routes.route_type=2 HAVING distance < 10 ORDER BY distance", lat, lon)
         for stop in stops:
-            return model.to_dict(stop)
+            return model_to_dict(stop)
             break
         return None
     
