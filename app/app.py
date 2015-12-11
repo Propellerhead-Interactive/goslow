@@ -70,7 +70,7 @@ def the_route_times(systemID,routeID):
 @app.route("/api/<systemID>/close/<lat>/<lon>",methods = ['GET'])
 def the_closest_stop(systemID, lat, lon):
     s = TrainSearch.find_closest(lat, lon)
-    return jsonify({"stop":json.dumps(model_to_dict(s))})
+    return jsonify({"stop":(model_to_dict(s))})
 
    
 #shows the given status for the routes

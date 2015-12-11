@@ -37,7 +37,8 @@ class Stops(BaseModel):
     stop_id = TextField(primary_key=True)
     stop_name = TextField()
     stop_lat = FloatField()
-    stop_lon = FloatField
+    stop_lon = FloatField()
+    
 
 class StopTimes(BaseModel):
     trip_id = TextField()
