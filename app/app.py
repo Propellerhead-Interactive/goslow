@@ -64,7 +64,15 @@ def the_routes(systemID,routeID):
 @app.route("/api/<systemID>/routes/<routeID>/times",methods = ['GET'])
 def the_route_times(systemID,routeID):
     return jsonify({"message":"usage:TBD"})
-    
+ 
+ 
+#shows cloest station to the person
+@app.route("/api/<systemID>/close/<lat>/<lon>",methods = ['GET'])
+def the_closest_stop(systemID, lat, lon):
+    s = TrainSearch.find_closest(lat, lon)
+    return jsonify({"stop":json.dumps(model_to_dict(s))})
+
+   
 #shows the given status for the routes
 @app.route("/api/<systemID>/routes/<routeID>/status",methods = ['GET'])
 def the_route_status(systemID,routeID):

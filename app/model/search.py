@@ -2,6 +2,16 @@ from models import *
 
 class TrainSearch:
     @staticmethod
+    def find_closest(lat, lon):
+        stops=  Stops.raw("SELECT stop_id, stop_name, stop_lat, stop_lon, SQRT(POW(69.1 * (stop_lat - %s), 2) +POW(69.1 * (%s - stop_lon) * COS(stop_lat / 57.3), 2)) AS distance FROM stops HAVING distance < 10 ORDER BY distance", lat,lon )
+        for stop in stops:
+            return stop
+            break
+    
+    
+    
+    
+    @staticmethod
     def find_route(start_text, end_text):
         start_id=None
         end_id=None

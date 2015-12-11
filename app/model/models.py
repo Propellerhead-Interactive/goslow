@@ -25,15 +25,19 @@ class CalendarDates(BaseModel):
     class Meta:
         db_table = 'calendar_dates'
 
+#this is a line - top level for a number of stations
 class Routes(BaseModel):
     route_id = TextField(primary_key=True)
     route_short_name = TextField()
     route_long_name = TextField()
     route_type = IntegerField()
 
+#This is a location - contains info on the location
 class Stops(BaseModel):
     stop_id = TextField(primary_key=True)
     stop_name = TextField()
+    stop_lat = FloatField()
+    stop_lon = FloatField
 
 class StopTimes(BaseModel):
     trip_id = TextField()
