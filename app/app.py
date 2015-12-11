@@ -5,7 +5,7 @@ from playhouse.shortcuts import *
 import sys
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
-
+from search import TrainSearch
 from models import Tweet, db
 from utils import Utils
 
@@ -43,7 +43,7 @@ def api():
     return jsonify({"message":"usage:TBD"})
 
 #shows all the routes for the tiven system
-@app.route("/api/<systemID>/routes")
+@app.route("/api/<systemID>/routes",methods = ['GET'])
 def all_routes(systemID):
     r = Routes.select().where(Routes.route_type==2)
     all_r = []
@@ -52,7 +52,7 @@ def all_routes(systemID):
     return jsonify({"routes":json.dumps(all_r) })
 
 #shows a single route for the tiven system
-@app.route("/api/<systemID>/routes/<routeID>")
+@app.route("/api/<systemID>/routes/<routeID>",methods = ['GET'])
 def the_routes(systemID,routeID):
     r = Routes.select().where(Routes.route_type==2).where(Routes.route_id==routeID)
     all_r = []
@@ -61,16 +61,27 @@ def the_routes(systemID,routeID):
     return jsonify({"routes":json.dumps(all_r)})
 
 #shows all the times for the times route
-@app.route("/api/<systemID>/routes/<routeID>/times")
+@app.route("/api/<systemID>/routes/<routeID>/times",methods = ['GET'])
 def the_route_times(systemID,routeID):
     return jsonify({"message":"usage:TBD"})
     
 #shows the given status for the routes
-@app.route("/api/<systemID>/routes/<routeID>/status")
+@app.route("/api/<systemID>/routes/<routeID>/status",methods = ['GET'])
 def the_route_status(systemID,routeID):
     return jsonify({"message":"usage:TBD"})
     
+#shows the given schedule for the routes for today
+@app.route("/api/<systemID>/routes/<routeID>/schedule",methods = ['GET'])
+def the_route_schedule(systemID,routeID):
+    return jsonify({"message":"usage:TBD"})
+    
 
+#shows the given status for the routes
+@app.route("/api/<systemID>/search/<from_station>/<to_station>",methods = ['GET'])
+def the_route_search(systemID,from_station,to_station):
+    s = TrainSearch.find_route(from_station, to_station)
+    #request.data
+    return jsonify({"message":s})
     
 
 
