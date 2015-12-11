@@ -9,9 +9,6 @@ class BaseModel(peewee.Model):
     class Meta:
         database = db
 
-
-
-
 class Tweet(BaseModel):
     content = TextField()
     tweet_id = TextField()
