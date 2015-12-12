@@ -24,14 +24,21 @@ class TrainSearch:
                 start_id = s.stop_id
         if start_id is None:
             return "Could not find from station " + start_text
-            
-        
         for s2 in stations:
             if end_text.lower().strip()==s2.stop_name.lower().strip():
                 end_id = s2.stop_id
         if end_id is None:
             return "Could not find to station: " + end_text
-            
+    
+       # st = StopTimes.select(StopTimes.departure_time).distinct().join(Trips).join(Routes).where(Routes.route_type==2, Trips.service_id.contains(datetime.datetime.today().strftime('%a')), StopTimes.stop==st_id).order_by(StopTimes.departure_time).asc()
+        #THIS FINDS THE ROUTE BY JOINING WHERE TWO STATIONS INTERSCT
+        
+        sql = 'select DISTINCT t1.route_id, t1.stop_id,  t2.stop_id from (select route_id, \
+         stop_id, trip_headsign from stop_times inner join trips on stop_times.trip_id = trips.trip_id \
+         where stop_id="%s") t1,\
+         (select route_id,  stop_id,trip_headsign from stop_times inner join trips on stop_times.trip_id =trips.trip_id \
+         where stop_id="%s") t2 where t1.trip_headsign=t2.trip_headsign ;'
+#   
         return "found!"
 
     @staticmethod

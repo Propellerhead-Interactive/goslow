@@ -38,8 +38,10 @@ def wordfun():
     return render_template("delays.html", items=items)
     
 #################API#######################
+
 @app.route("/api")
 def api():
+    '''Doesnt do anything'''
     return jsonify({"message":"usage:TBD"})
 
 #shows all the routes for the given system
@@ -49,16 +51,16 @@ def all_routes(systemID):
     all_r = []
     for rr in r:
         all_r.append(model_to_dict(rr))
-    return jsonify({"routes":json.dumps(all_r) })
+    return jsonify({"routes":(all_r) })
 
-#shows a single route for the given system
 @app.route("/api/<systemID>/routes/<routeID>",methods = ['GET'])
 def the_routes(systemID,routeID):
+    '''shows a single route for the given system given *routeID*'''
     r = Routes.select().where(Routes.route_type==2).where(Routes.route_id==routeID)
     all_r = []
     for rr in r:
         all_r.append(model_to_dict(rr))
-    return jsonify({"routes":json.dumps(all_r)})
+    return jsonify({"routes":all_r})
 
 #shows all the times for the times route
 @app.route("/api/<systemID>/routes/<routeID>/times",methods = ['GET'])
@@ -89,7 +91,7 @@ def the_route_schedule(systemID,routeID):
 def the_route_search(systemID,from_station,to_station):
     s = TrainSearch.find_route(from_station, to_station)
     #request.data
-    return jsonify({"message":s})
+    return jsonify({"trips":s})
 
 #Lists all train stations
 @app.route("/api/<systemID>/stops",methods = ['GET'])
