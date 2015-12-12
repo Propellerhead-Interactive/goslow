@@ -1,5 +1,6 @@
 from models import *
 from playhouse.shortcuts import *
+import datetime
 
 class TrainSearch:
 
@@ -17,9 +18,8 @@ class TrainSearch:
     def find_route(start_text, end_text):
         start_id=None
         end_id=None
-        stations = self.get_stops()
+        stations = TrainSearch.get_stops()
         for s in stations:
-            print s.stop_name
             if start_text.lower().strip()==s.stop_name.lower().strip():
                 start_id = s.stop_id
         if start_id is None:
@@ -29,18 +29,35 @@ class TrainSearch:
                 end_id = s2.stop_id
         if end_id is None:
             return "Could not find to station: " + end_text
-    
-       # st = StopTimes.select(StopTimes.departure_time).distinct().join(Trips).join(Routes).where(Routes.route_type==2, Trips.service_id.contains(datetime.datetime.today().strftime('%a')), StopTimes.stop==st_id).order_by(StopTimes.departure_time).asc()
-        #THIS FINDS THE ROUTE BY JOINING WHERE TWO STATIONS INTERSCT
         
-        sql = 'select DISTINCT t1.route_id, t1.stop_id,  t2.stop_id from (select route_id, \
-         stop_id, trip_headsign from stop_times inner join trips on stop_times.trip_id = trips.trip_id \
-         where stop_id="%s") t1,\
-         (select route_id,  stop_id,trip_headsign from stop_times inner join trips on stop_times.trip_id =trips.trip_id \
-         where stop_id="%s") t2 where t1.trip_headsign=t2.trip_headsign ;'
-#   
-        return "found!"
-
+        #THIS FINDS THE ROUTE BY JOINING WHERE TWO STATIONS INTERSCT
+       # st = StopTimes.select(StopTimes.departure_time).distinct().join(Trips).join(Routes).where(Routes.route_type==2, Trips.service_id.contains(datetime.datetime.today().strftime('%a')), StopTimes.stop==st_id).order_by(StopTimes.departure_time).asc()
+        
+        #ALL OF THE TRAINS FROM OR TO GIVEN A DAY of wEEK
+        #   
+       
+        days =  ['Sun', 
+              'Mon', 
+              'Tue', 
+              'Wed', 
+              'Thu',  
+              'Fri', 
+              'Sat']
+        dow = datetime.datetime.today().weekday()
+        
+        sts = db.execute_sql("select trips.trip_id, s1.departure_time, s1.stop_id from_stop_id, s2.stop_id to_stop_id, \
+        s2.arrival_time, trips.direction_id from stop_times s1 inner join \
+        trips on (trips.trip_id = s1.trip_id) inner join stop_times s2 on \
+        (trips.trip_id = s2.trip_id) where s1.stop_id=%s and s2.stop_id=%s AND trips.trip_id \
+        LIKE %s group by s1.departure_time order by s1.departure_time" , (start_id, end_id, "%"+days[dow]+"%"))
+        print sts
+        final_list = []
+        
+        for st in sts:
+            sched = ComposedSchedule(st[0],st[1],st[2],st[3],st[4], st[5])
+            final_list.append(sched.__dict__) 
+        return final_list
+        
     @staticmethod
     def get_stops():
         return Stops.select(Stops.stop_name, Routes.route_id, Stops.stop_id).join(StopTimes).join(Trips).join(Routes).where(Routes.route_type == 2).group_by(Stops)

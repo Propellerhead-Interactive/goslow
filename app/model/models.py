@@ -8,6 +8,25 @@ db = MySQLDatabase('goslow', user='root',passwd='')
 class BaseModel(peewee.Model):
     class Meta:
         database = db
+        
+
+class ComposedSchedule():
+    trip_id = None
+    departure_time = None
+    arrival_time = None
+    from_stop_id = None
+    to_stop_id = None
+    direction = None
+    
+    def __init__(self, trip_id, departure_time, arrival_time, from_stop_id, to_stop_id, direction):
+        self.trip_id = trip_id
+        self.departure_time = departure_time
+        self.arrival_time = arrival_time
+        self.from_stop_id = from_stop_id
+        self.to_stop_id = to_stop_id
+        self.direction = direction
+        
+    
 
 class Tweet(BaseModel):
     content = TextField()
