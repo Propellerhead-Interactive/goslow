@@ -24,9 +24,22 @@ class ComposedSchedule():
         self.arrival_time = arrival_time
         self.from_stop_id = from_stop_id
         self.to_stop_id = to_stop_id
+
+class Users(BaseModel):
+    id = PrimaryKeyField()
+    username = TextField()
+    github_access_token = TextField()
+    class Meta:
+        db_table = 'users'
         
         
-    
+class Keys(BaseModel):
+    id = IntegerField(primary_key=True)
+    api_key = TextField()   
+    user =  ForeignKeyField(Users, related_name='keys')  
+    class Meta:
+        db_table = 'keys'
+
 
 class Tweet(BaseModel):
     content = TextField()
@@ -36,6 +49,10 @@ class Tweet(BaseModel):
     author = TextField() 
     sentiment = IntegerField()
     sentiment_level = DecimalField()
+
+db.create_tables([Users, Tweet], safe=True) 
+db.create_tables([Keys], safe=True)    
+
 
 class CalendarDates(BaseModel):
     service_id = TextField()
@@ -83,3 +100,5 @@ class Status(BaseModel):
     message = TextField()
     trip = ForeignKeyField(Trips, related_name='trips')
     created_at = DateTimeField(default=datetime.datetime.now)
+
+

@@ -1,5 +1,5 @@
 import sys, json
-from flask import Flask, jsonify
+from flask import Flask, jsonify,request, g, session, redirect, url_for, flash
 from flask.ext.autodoc import Autodoc
 from flask import render_template
 from playhouse.shortcuts import *
@@ -7,8 +7,9 @@ import sys
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
 from search import TrainSearch
-from models import Tweet, db
+from models import *
 from utils import Utils
+from flask.ext.github import GitHub
 
 
 sys.path.insert(0, 'app/model/')
@@ -19,16 +20,73 @@ from webassets.loaders import PythonLoader as PythonAssetsLoader
 import assets
 
 app = Flask(__name__)
+
+app.config['GITHUB_CLIENT_ID'] = 'd0155a375a97ba22c38c'
+app.config['GITHUB_CLIENT_SECRET'] = 'e64a177e17970823444c9b1a124c4380d8f4bfd5'
+#app.config['GITHUB_BASE_URL'] = 'https://localhost:5000/api/v3/'
+#app.config['GITHUB_AUTH_URL'] = 'https://localhost:5000/login/oauth/'
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
 app.config.update(
     DEBUG=True,
     use_reloader=True
 )
 auto = Autodoc(app)
+github = GitHub(app)
+
 
 assets_env = Environment(app)
 assets_loader = PythonAssetsLoader(assets)
 for name, bundle in assets_loader.load_bundles().iteritems():
         assets_env.register(name, bundle)
+
+############### GITHUB OAUTH ###################
+
+@app.before_request
+def before_request():
+    g.user = None
+    print session
+    if 'user_id' in session:
+        
+        g.user = Users.select().where(Users.id==session['user_id']).get()
+
+
+@app.after_request
+def after_request(response):
+    session['user'] = None
+    return response
+
+
+@app.route('/login')
+def login():
+    return github.authorize()
+    
+    
+@app.route('/github-callback')
+@github.authorized_handler
+def authorized(oauth_token):
+    next_url = request.args.get('next') or url_for('api_key_index')
+    if oauth_token is None:
+        flash("Authorization failed.")
+        return redirect(next_url)
+    try:
+        users = Users.select().where(Users.github_access_token==oauth_token).get()
+    except Users.DoesNotExist:
+        user = Users.create(github_access_token = oauth_token)
+        
+        
+    user.github_access_token = oauth_token
+    user.save()
+    session['user'] = user
+    return redirect(next_url)
+    
+@github.access_token_getter
+def token_getter():
+    user = g.user
+    if user is not None:
+        return user.github_access_token
+
+#================= APP ========================
 
 @app.route("/")
 def hello():
@@ -54,7 +112,7 @@ def refund():
     s = TrainSearch.get_stops()
     return render_template("refunds.html", stops=s)
     
-#################API#######################
+################# API #######################
 
 @app.route("/api")
 def api():
@@ -73,8 +131,9 @@ def api_docs():
     
 @app.route("/api/keys")
 def api_key_index():
-    '''Doesnt do anything'''
-    return render_template("keys.html")
+    keys = Keys.select()
+    
+    return render_template("keys.html", keys = keys)
     
 @app.route("/api/status")
 def api_status_index():
