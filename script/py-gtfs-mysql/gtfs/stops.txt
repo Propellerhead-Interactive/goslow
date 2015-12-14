@@ -1,4 +1,4 @@
-stop_id,stop_name,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding
+﻿stop_id,stop_name,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding
 WH-ENT-10043,Whitby GO-Brock St S,43.8656,-78.9361,,,2,whtbyS-parent,0
 WH-ENT-10042,Whitby GO-Victorica St,43.8618,-78.9372,,,2,whtbyS-parent,0
 WH-ENT-10041,Whitby GO-Henry St,43.8655,-78.9413,,,2,whtbyS-parent,0
@@ -149,7 +149,6 @@ ymcken-parent,YMCA and Kennedy,43.8534180,-79.3089010,71,http://www.gotransit.co
 wodvml-parent,Rutherford and Vaughan Mills,43.8133630,-79.6163660,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 wod507-parent,Hwy. 50 and Queen,43.7671070,-79.6485540,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 wod404-parent,Woodbine Ave. @ Hwy. 404 GO Park and Ride,44.1918488,-79.4372101,46,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
-wndrlT-parent,Canada's Wonderland,43.8460121,-79.5406113,61,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 winstq-parent,Winchester and St Thomas,43.9554560,-78.9526670,51,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 wilprk-parent,Williams Parkway and Hwy. 410,43.7168310,-79.7517600,32,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 whtthk-parent,Dundas and Thickson,43.8864840,-78.9128920,93,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
@@ -192,7 +191,6 @@ stegib-parent,Stevenson and Gibb,43.8858710,-78.8800570,94,http://www.gotransit.
 steele-parent,Yonge and Steeles,43.7984420,-79.4201970,05,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 stdvic-parent,Yonge and Victoria,44.3245660,-79.6193090,68,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 stclak-parent,St. Catharines Fairview Mall,43.178627,-79.2452545,83,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
-stcatS-parent, St. Catharines GO,43.1476898,-79.2553024,83,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 sqr1-T-parent,Square One,43.5946060,-79.6475540,20,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 sprtwd-parent,Sportsworld Dr. @ Hwy. 8 GO Park & Ride,43.4099274,-80.3925095,26,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 snlmay-parent,Hurontario and Mayfield,43.7336910,-79.8248930,33,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
@@ -228,7 +226,6 @@ pckgna-parent,Kingston and Glenanna,43.8379980,-79.0874530,91,http://www.gotrans
 pckfpt-parent,Kingston and Fairport,43.8236450,-79.1065040,91,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 pckbck-parent,Kingston and Brock,43.8480040,-79.0738150,91,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 paimap-parent,Yonge and Mapleview,44.3484600,-79.6273170,68,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
-P_NI-parent, Niagara Falls GO,43.108882,-79.063319,1084,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 P_KC-parent, King City GO,43.920037,-79.526886,62,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 P_GL-parent, Guelph Central GO,43.544353,-80.246917,39,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 P_ET-parent, Etobicoke North GO,43.706172,-79.563506,04,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
@@ -255,8 +252,8 @@ nwmktT-parent,Newmarket GO Bus Terminal,44.0527344,-79.4865799,64,http://www.got
 nwmktS-parent,Newmarket GO,44.0598602,-79.4587479,64,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 norval-parent,Guelph St.  @ King St.,43.6466408,-79.8604736,35,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 nobh27-parent,King and Hwy. 27,43.9020610,-79.6533660,57,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
+nmk404-parent,Davis Drive and Highway 404,44.0686100,-79.4205680,64,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 nmk400-parent,Hwy. 9 @ Hwy. 400 GO Park & Ride,44.0275345,-79.5959473,64,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
-niaotl-parent,King St.  @ Picton St.,43.2543945,-79.0711823,84,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 niaflT-parent,Niagara Falls Bus Terminal,43.1085358,-79.0636063,84,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 newcst-parent,King and Beaver,43.9181830,-78.5858490,97,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 newcpr-parent,Hwy. 2 and Hwy. 35,43.9122940,-78.6122880,97,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
@@ -387,6 +384,7 @@ brp410-parent,Steeles and Rutherford,43.6806150,-79.7172500,33,http://www.gotran
 brough-parent,Highway 7 and Paddock,43.9273580,-79.0751260,86,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 brotwn-parent,Broadway  @ Townline,43.9213676,-80.0873718,43,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 brontS-parent,Bronte GO,43.4171840,-79.7223170,14,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
+brok407-parent,Brock Road and Highway 407,43.9183310,-79.0980080,86,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 bro407-parent,Bronte and Hwy. 407,43.4457630,-79.7920150,14,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 brkand-parent,Winchester and Anderson,43.9565520,-78.9471550,51,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
 brdjhn-parent,Barrie and Holland,44.1147810,-79.5649330,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,1,,1
@@ -443,7 +441,6 @@ UN,Union Station,43.645195,-79.3806,02,http://www.gotransit.com/publicroot/en/tr
 UI,Unionville GO,43.851689,-79.314332,71,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=UVGO,0,unovlS-parent,1
 ST,Stouffville GO,43.970924,-79.249989,74,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=SVGO,0,stouvS-parent,1
 SR,Streetsville GO,43.575584,-79.70882,21,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=STGO,0,strvlS-parent,1
-SCTH,St. Catharines GO,43.1476135,-79.2549057,1083,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=CAGO,0,stcatS-parent,1
 SC,Scarborough GO,43.716945,-79.254722,06,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=SCGO,0,SC-parent,1
 RU,Rutherford GO,43.838487,-79.498819,61,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=RUGO,0,ruthfS-parent,1
 RO,Rouge Hill GO,43.780375,-79.130646,09,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=ROGO,0,RO-parent,1
@@ -455,7 +452,6 @@ OS,Oshawa GO,43.871004,-78.884807,94,http://www.gotransit.com/publicroot/en/trav
 OR,Oriole GO,43.765518,-79.364275,05,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=ORGO,0,OR-parent,1
 OL,Old Cummer GO,43.793703,-79.371403,05,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=CMGO,0,OL-parent,1
 OA,Oakville GO,43.455594,-79.682242,13,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=OKGO,0,oakvlS-parent,1
-NI,Niagara Falls GO,43.108882,-79.063319,1084,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=NFGO,0,P_NI-parent,1
 NE,Newmarket GO,44.060426,-79.459289,64,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=NMGO,0,nwmktS-parent,1
 MR,Markham GO,43.882691,-79.262469,72,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=MKGO,0,markhS-parent,1
 MP,Maple GO,43.859481,-79.506984,61,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=MAGO,0,mapleS-parent,1
@@ -503,9 +499,9 @@ AG,Agincourt GO,43.78611,-79.284385,07,http://www.gotransit.com/publicroot/en/tr
 AD,Allandale Waterfront GO,44.374139,-79.687858,69,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=ADGO,0,allanS-parent,1
 AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=ATGO,0,P_AC-parent,1
 08040,Bronte Rd. @ Hwy. 407 GO Carpool Lot,43.4457626,-79.7920151,14,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,bro407-parent,1
-08039,Regional Rd. 25 @ Hwy. 401 GO Park and Ride,43.5274849,-79.9038162,24,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,milcpl-parent,1
+08039,Regional Rd. 25 @ Hwy. 401 GO Park & Ride,43.5274849,-79.9038162,24,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,milcpl-parent,1
 08032,Bramalea Bus Terminal,43.7186356,-79.7205734,32,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BLTT,0,bramaT-parent,1
-08030,Williams Pkwy. @ Hwy. 410 GO Carpool Lot,43.716526,-79.7513046,32,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=WILL,0,wilprk-parent,1
+08030,Williams Pkwy. @ Hwy. 410 GO Park & Ride,43.716526,-79.7513046,32,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=WILL,0,wilprk-parent,1
 08029,University of Toronto Scarborough,43.7843628,-79.1851273,89,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,utscar-parent,1
 08025,Trafalgar Rd. @ Hwy. 407 GO Carpool Lot,43.5061531,-79.7453842,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,oakprk-parent,2
 08024,Trafalgar Rd. @ Hwy. 407 GO Carpool Lot,43.5061531,-79.7453842,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,oakprk-parent,1
@@ -515,6 +511,9 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 08010,Kitchener GO Bus,43.455573,-80.492543,27,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,kitchS-parent,2
 08006,Bradford GO Bus,44.116654,-79.555752,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,bradfS-parent,1
 08002,Allandale Waterfront GO Bus,44.373817,-79.689441,69,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,allanS-parent,1
+02570,Yonge St. @ Greenfield Ave.,43.7635994,-79.4113083,05,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,nykelm-parent,1
+02569,Brock Rd. @ Hwy. 407 GO Park & Ride,43.912816,-79.095858,86,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BROU,0,brok407-parent,1
+02568,Yonge St. @ Sheppard Ave.,43.7613983,-79.4107361,05,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=SHEP,0,nykshp-parent,1
 02567,Hurontario St. @ Old School Rd.,43.753563,-79.851234,41,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02546,Hurontario St. @ Old School Rd.,43.753716,-79.851891,41,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02545,Markham Rd. @ Edward Jeffreys Ave.,43.895947,-79.264854,73,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
@@ -523,6 +522,8 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 02542,Simcoe St. N. @ Parkwood Court,43.905533,-78.867271,94,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02541,Morningside Ave. @ Tams Rd.,43.791924,-79.195305,89,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02540,Morningside Ave. @ Tams Rd.,43.792179,-79.19574,89,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
+02539,Brock Rd. @ Hwy. 407 GO Park & Ride,43.912816,-79.095858,86,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BROU,0,brok407-parent,1
+02538,Davis Dr. @ Hwy. 404 GO Park & Ride,44.0676956,-79.4215164,64,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=N404,0,nmk404-parent,1
 02537,Barrie St. @ Doctors Lane,44.115643,-79.565002,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,brdjhn-parent,2
 02536,Trafalgar Rd. @ Dundas St. E.,43.487812,-79.71936,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02535,Hwy. 50 @ Ebenezer Rd.,43.777973,-79.654884,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
@@ -540,7 +541,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 02520,Wellington St. E.  @ John West Way,44.0035057,-79.4506836,63,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 02519,Guelph Central GO Bus,43.544932,-80.246388,39,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=GUEP,0,guelpS-parent,1
 02518,MacDonell St. @ Carden St. (Guelph Central GO),43.5463142,-80.2452316,39,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,guelpS-parent,1
-02517,King St.  @ Picton St.,43.2543945,-79.0711823,84,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=NOTL,0,niaotl-parent,1
 02513,Blind Line  @ College Ave.,43.9221954,-80.1162033,43,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02512,Blind Line  @ Hansen Blvd.,43.9247589,-80.1168442,43,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 02511,Queen St. East @ West Dr.,43.7095222,-79.733696,32,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
@@ -562,7 +562,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 02405,Stanley Ave.  @  Hwy. 420,43.0964737,-79.0854797,84,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=NFST,0,stn420-parent,1
 02404,Stamford St. @ Stanley Ave. GO Park & Ride,43.097271,-79.0852356,84,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=NFST,0,stn420-parent,1
 02402,St. Catharines Fairview Mall,43.178627,-79.2452545,83,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=STFM,0,stclak-parent,1
-02401,St. Catharines GO Bus,43.1476898,-79.2553024,83,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=CAGO,0,stcatS-parent,2
 02215,Erin Mills Transitway,43.552124,-79.7004547,21,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=EMTW,0,misemp-parent,1
 02214,Erin Mills Transitway,43.5520363,-79.7003021,21,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=EMTW,0,misemp-parent,1
 02213,Erin Mills Transitway,43.552124,-79.7004547,21,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=EMTW,0,misemp-parent,1
@@ -921,7 +920,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 01402,Regional Rd. 50  @ Countryside Dr.,43.8368378,-79.6890564,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 01400,Regional Rd. 50  @ Castlemore Rd.,43.8032684,-79.6695251,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 01398,Hwy. 50  @ Cottrelle Blvd.,43.7850227,-79.6589432,56,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
-01395,Hwy. 50  @ Hwy. 7,43.7669487,-79.648201,56,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=W507,0,wod507-parent,1
 01394,Albion Rd.  @ Steeles Ave. W.,43.7499313,-79.639595,32,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 01393,Albion Rd.  @ Steeles Ave. W.,43.7503242,-79.6393509,32,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 01392,Winston Churchill Blvd.  @ Credit Valley Rd.,43.5466614,-79.7139511,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
@@ -1074,12 +1072,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 00991,Hurontario St. @ Ray Lawson Blvd.,43.658577,-79.7236023,22,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00990,Hurontario St. @ County Court Blvd.,43.6589584,-79.7234879,22,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00989,Hurontario St. @ County Court Blvd.,43.6621399,-79.7277679,22,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00988,Holland Landing Rd. @ Oriole Dr.,44.1050797,-79.5155869,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00987,Holland Landing Rd. @ Oriole Dr.,44.1052437,-79.5155182,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00986,Holland Landing Rd. @ Bradford St.,44.0999832,-79.4990005,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00985,Holland Landing Rd. @ Bradford St.,44.0997162,-79.4984818,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00984,Holland Landing Rd. @ Yonge St.,44.0923996,-79.4903946,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,holmta-parent,2
-00983,Holland Landing Rd. @ Yonge St.,44.0924377,-79.4902115,65,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,holmta-parent,2
 00982,Hwy. 7 W. @ Concession 6,43.9257317,-79.0776825,86,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,brough-parent,2
 00981,Hwy. 7 W. @ Paddock Rd.,43.9257317,-79.0787201,86,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,brough-parent,2
 00980,Cooke Blvd. @ Masonry Crt.,43.3092003,-79.853508,17,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,watmas-parent,2
@@ -1143,7 +1135,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 00901,Trafalgar Rd.  @ Glenashton Dr.,43.480526,-79.7098923,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00900,Trafalgar Rd.  @ Glenashton Dr.,43.4801941,-79.7090683,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00899,Trafalgar Rd.  @ Dundas St. E.,43.488224,-79.7202759,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
-00898,Trafalgar Rd.  @ Dundas St. E.,43.4883308,-79.7200241,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00897,Trafalgar Rd.  @ Briarhall Gate,43.4771309,-79.7049179,13,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00896,Thompson Rd. S.  @ McCuaig Dr.,43.5222435,-79.8590088,24,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 00895,Thompson Rd. S.  @ McCuaig Dr.,43.5221252,-79.8587494,24,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
@@ -1349,11 +1340,9 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 00553,Durham Hwy. 47  @  Goodwood Rd.,44.0338898,-79.2021637,75,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=GDWD,0,,2
 00550,Durham Hwy. 2  @  Varcoe Rd.,43.9071846,-78.8074951,95,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 00549,Durham Hwy. 2  @  Trulls Rd.,43.911026,-78.7880707,95,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,clatru-parent,2
-00548,King St. W.  @  Temperance St.,43.9119873,-78.6884995,96,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00547,Durham Hwy. 2  @  Solina Rd.,43.9138412,-78.7575531,95,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00544,Durham Hwy. 2  @  Rundle Rd.,43.9139404,-78.7460556,96,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00543,King Ave. W.  @  Rudell Rd.,43.9147644,-78.6007919,97,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
-00542,King Ave. W.  @  Rudell Rd.,43.9143715,-78.6017914,97,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
 00541,King St. W.  @  Roenigk Dr.,43.9130325,-78.6950607,96,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 00540,King St. W.  @  Roenigk Dr.,43.9127769,-78.6950073,96,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,1
 00539,Durham Hwy. 2  @  Rickard Rd.,43.9124374,-78.6391907,97,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,,2
@@ -1614,7 +1603,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 00061,Langstaff Rd. E. @ Cedar Ave. (Langstaff GO),43.836579,-79.420376,60,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,langsS-parent,2
 00060,Langstaff Rd. E. @ Cedar Ave. (Langstaff GO),43.836455,-79.420243,60,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=LNGO,0,langsS-parent,1
 00054,Bramalea GO Bus,43.70215,-79.689512,32,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BLGO,0,bramlS-parent,1
-00053,Canada's Wonderland,43.8460121,-79.5406113,61,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=WNDR,0,wndrlT-parent,1
 00051,Brock St.  @ Dundas St.,43.8799286,-78.9423141,93,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=12MA,0,whtmar-parent,1
 00050,Winchester Rd.  @ Anderson St.,43.9564133,-78.947403,51,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BRKL,0,brkand-parent,2
 00049,Hwy 7 & 12  @ Myrtle Rd. W.,44.0092125,-78.9661865,51,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=MYRT,0,myrh12-parent,1
@@ -1634,7 +1622,6 @@ AC,Acton GO,43.6338043,-80.034111,37,http://www.gotransit.com/publicroot/en/trav
 00029,York University,43.7730637,-79.5009308,19,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=YRKU,0,yukeeT-parent,1
 00028,Rutherford GO Bus,43.838582,-79.498945,61,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=RUGO,0,ruthfS-parent,1
 00027,Keele St.  @  Station Rd.,43.9203224,-79.5260773,62,http://www.gotransit.com/publicroot/en/travelling/citylocations.aspx,0,kingcS-parent,1
-00026,Barrie St.  @ John St. E.,44.1148643,-79.564827,65,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BRAD,0,brdjhn-parent,1
 00025,Barrie St.  @ Holland St. W.,44.1146889,-79.565094,65,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=BRAD,0,brdjhn-parent,2
 00022,Keele St.  @ Hwy. 401,43.7216759,-79.4808273,05,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=KEEL,0,kee401-parent,2
 00021,Hwy. 9 @ Hwy. 400 GO Park & Ride,44.0275345,-79.5959473,64,http://www.gotransit.com/publicroot/en/travelling/stations.aspx?station=9400,0,nmk400-parent,1

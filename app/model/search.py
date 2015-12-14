@@ -15,7 +15,7 @@ class TrainSearch:
     
     
     @staticmethod
-    def find_route(start_text, end_text):
+    def find_route(start_text, end_text, dow=0):
         start_id=None
         end_id=None
         stations = TrainSearch.get_stops()
@@ -29,26 +29,32 @@ class TrainSearch:
                 end_id = s2.stop_id
         if end_id is None:
             return "Could not find to station: " + end_text
-        
+        try:
+            dow = int(dow)
+        except ValueError:
+            print "error converting int"
+            return  "Third Arg must be an integer"
         #THIS FINDS THE ROUTE BY JOINING WHERE TWO STATIONS INTERSCT
        # st = StopTimes.select(StopTimes.departure_time).distinct().join(Trips).join(Routes).where(Routes.route_type==2, Trips.service_id.contains(datetime.datetime.today().strftime('%a')), StopTimes.stop==st_id).order_by(StopTimes.departure_time).asc()
         
         #ALL OF THE TRAINS FROM OR TO GIVEN A DAY of wEEK
         #   
        
-        days =  ['Sun', 
+        days =  [ 
               'Mon', 
               'Tue', 
               'Wed', 
               'Thu',  
               'Fri', 
-              'Sat']
-        dow = datetime.datetime.today().weekday()
+              'Sat',
+              'Sun']
+        #dow = datetime.datetime.today().weekday()
+        print "dow",dow
         
         sts = db.execute_sql("select trips.trip_id, s1.departure_time, s1.stop_id from_stop_id, s2.stop_id to_stop_id, \
         s2.arrival_time, trips.direction_id from stop_times s1 inner join \
         trips on (trips.trip_id = s1.trip_id) inner join stop_times s2 on \
-        (trips.trip_id = s2.trip_id) where s1.stop_id=%s and s2.stop_id=%s AND trips.trip_id \
+        (trips.trip_id = s2.trip_id) join routes on (routes.route_id=trips.route_id) where routes.route_type=3 AND s1.stop_id=%s and s2.stop_id=%s AND trips.trip_id \
         LIKE %s group by s1.departure_time order by s1.departure_time" , (start_id, end_id, "%"+days[dow]+"%"))
         print sts
         final_list = []

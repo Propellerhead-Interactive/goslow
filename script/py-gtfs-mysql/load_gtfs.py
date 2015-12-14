@@ -19,7 +19,7 @@ def main():
     cursor = conn.cursor()
     
     TABLES = ['agency', 'calendar_dates', 'routes', 'stops', 'stop_times', 'trips']
-
+    
     for table in TABLES:
         print 'processing %s' % table
         f = open('gtfs/%s.txt' % table, 'r')
