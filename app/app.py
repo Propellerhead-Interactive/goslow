@@ -1,11 +1,11 @@
 import sys, json
-from flask import Flask, jsonify
-from flask import render_template
+from flask import Flask, jsonify, render_template, request
 from playhouse.shortcuts import *
 import sys
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
 from search import TrainSearch
+from refund import Refund
 from models import Tweet, db
 from utils import Utils
 
@@ -81,13 +81,11 @@ def the_routes(systemID,routeID):
 def the_route_times(systemID,routeID):
     return jsonify({"message":"usage:TBD"})
  
- 
 #shows cloest station to the person
 @app.route("/api/<systemID>/close/<lat>/<lon>",methods = ['GET'])
 def the_closest_stop(systemID, lat, lon):
     s = TrainSearch.find_closest(lat, lon)
     return jsonify({"stop":s})
-
    
 #shows the given status for the routes
 @app.route("/api/<systemID>/routes/<routeID>/status",methods = ['GET'])
@@ -98,7 +96,6 @@ def the_route_status(systemID,routeID):
 @app.route("/api/<systemID>/routes/<routeID>/schedule",methods = ['GET'])
 def the_route_schedule(systemID,routeID):
     return jsonify({"message":"usage:TBD"})
-    
 
 #shows the given status for the routes - third arg is day of week
 @app.route("/api/<systemID>/search_today/<from_station_id>/<to_station_id>",methods = ['GET'])
@@ -121,9 +118,6 @@ def the_trip(systemID,trip_id):
     #request.data
     return jsonify({"stops":s})
 
-
-
-
 #Lists all train stations
 @app.route("/api/<systemID>/stops",methods = ['GET'])
 def all_stops(systemID):
@@ -143,6 +137,15 @@ def all_stops_from_origin(systemID, from_station):
             all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })
 
+#Lists all destination stations from origin station
+@app.route("/api/<systemID>/refund",methods = ['POST'])
+def do_refund(systemID):
+    Refund.make_refund(request.form['pc_number'],
+                       request.form['email'],
+                       request.form['travel_date'],
+                       request.form['from_station'],
+                       request.form['to_station'],
+                       request.form['travel_time'])
+
 if __name__ == "__main__":
     app.run()
-
