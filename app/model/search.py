@@ -66,10 +66,8 @@ class TrainSearch:
     @staticmethod
     def find_trip(_id):
         trips = []
-        
-        times = StopTimes.select().where(StopTimes.trip==_id).order_by(StopTimes.stop_sequence)
+        times = StopTimes.select().join(Stops).where(StopTimes.trip==_id).order_by(StopTimes.stop_sequence)
         for t in times:
-            print t
             trips.append(model_to_dict(t))
         return trips
 

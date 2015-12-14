@@ -105,7 +105,7 @@ def the_route_search(systemID,from_station_id,to_station_id, dow):
 def the_trip(systemID,trip_id):
     s = TrainSearch.find_trip(trip_id)
     #request.data
-    return jsonify({"trips":s})
+    return jsonify({"stops":s})
 
 
 
