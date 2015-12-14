@@ -1,0 +1,46 @@
+{% extends "api_layout.html" %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-sm-12">
+				<h1>API Documentation</h1>
+			</div>
+		</div>
+
+<div class="row">
+	<div class="col-sm-12">
+				
+{% for doc in autodoc %}
+        <div class="mapping">
+					<div class="breadcrumb">
+            <a id="rule-{{doc.rule|urlencode}}" class="rule"><h5>{{doc.rule|escape}}</h5></a>
+						{{doc.docstring}}
+					</div>
+            <h5>Acceptable Methods</h5>
+            <ul class="methods">
+                {% for method in doc.methods -%}
+                <li class="method">{{method}}</li>
+                {% endfor %}
+            </ul>
+						<h5>Required Variables</h5>
+            <ul class="arguments">
+                {% for arg in doc.args %}
+                <li>
+                    <span class="argument">{{arg}}</span>
+                    <span class="default">{{doc.defaults[arg]}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+						<h5>Returns</h5>
+            TBD
+          
+        </div>
+        {% endfor %}
+				
+			</div>
+		</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "api_layout.html" %}
+{% block body %}
+      
+			
+			<div class="row">
+					<div class="col-lg-6">
+			    		 <h1>API Keys</h1>
+					 
+					 </div>
+							
+			</div>
+			<div class="panel panel-default">
+			                    <div class="panel-heading">
+			                <form class="form-inline" role="form" method="post" action="/api/keys/create">
+			                    <div class="form-group">
+			                        <label class="sr-only" for="key-description">Description</label>
+			                        <input type="text" name="d" class="form-control" id="key-description" placeholder="Enter a description">
+			                    </div>
+			                    <button type="submit" class="btn btn-default">Create Key</button>
+			                </form>
+			            </div>
+			                            <table class="table table-striped table-hover">
+			                <thead>
+			                    <tr>
+			                        <th>Description</th>
+			                        <th>Key</th>
+			                        <th></th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                     <tr>
+			                            <td>tesst </td>
+			                            <td>
+			                                <code>25e18288-0ab1-45ba-89e2-e92bebc1aea3</code>
+			                            </td>
+			                            <td>
+			                                <form class="form-inline" role="form" method="post" action="/api/keys">
+			                                    <input type="hidden" name="key" value="25e18288-0ab1-45ba-89e2-e92bebc1aea3">
+			                                    <button type="submit" class="btn btn-primary btn-xs" name="action" value="delete">Delete</button>
+			                                </form>
+			                            </td>
+			                        </tr>
+			                                    </tbody>
+			            </table>
+			            </div>
+			
+
+{% endblock %}
