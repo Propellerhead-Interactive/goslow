@@ -87,18 +87,27 @@ def the_route_schedule(systemID,routeID):
     
 
 #shows the given status for the routes - third arg is day of week
-@app.route("/api/<systemID>/search_today/<from_station>/<to_station>",methods = ['GET'])
-def the_route_search_today(systemID,from_station,to_station):
-    s = TrainSearch.find_route(from_station, to_station, 0)
+@app.route("/api/<systemID>/search_today/<from_station_id>/<to_station_id>",methods = ['GET'])
+def the_route_search_today(systemID,from_station_id,to_station_id):
+    s = TrainSearch.find_route(from_station_id, to_station_id, 0)
     #request.data
     return jsonify({"trips":s})
     
 #shows the given status for the routes - third arg is day of week
-@app.route("/api/<systemID>/search/<from_station>/<to_station>/<dow>",methods = ['GET'])
-def the_route_search(systemID,from_station,to_station, dow):
-    s = TrainSearch.find_route(from_station, to_station, dow)
+@app.route("/api/<systemID>/search/<from_station_id>/<to_station_id>/<dow>",methods = ['GET'])
+def the_route_search(systemID,from_station_id,to_station_id, dow):
+    s = TrainSearch.find_route(from_station_id, to_station_id, dow)
     #request.data
     return jsonify({"trips":s})
+
+#shows the given status for the routes - third arg is day of week
+@app.route("/api/<systemID>/trips/<trip_id>/",methods = ['GET'])
+def the_trip(systemID,trip_id):
+    s = TrainSearch.find_trip(trip_id)
+    #request.data
+    return jsonify({"trips":s})
+
+
 
 
 #Lists all train stations

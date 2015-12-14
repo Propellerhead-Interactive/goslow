@@ -16,15 +16,15 @@ class ComposedSchedule():
     arrival_time = None
     from_stop_id = None
     to_stop_id = None
-    direction = None
+   
     
-    def __init__(self, trip_id, departure_time, arrival_time, from_stop_id, to_stop_id, direction):
+    def __init__(self, trip_id, departure_time, arrival_time, from_stop_id, to_stop_id):
         self.trip_id = trip_id
         self.departure_time = departure_time
         self.arrival_time = arrival_time
         self.from_stop_id = from_stop_id
         self.to_stop_id = to_stop_id
-        self.direction = direction
+        
         
     
 
@@ -71,9 +71,12 @@ class StopTimes(BaseModel):
     departure_time = TextField()
     stop = ForeignKeyField(Stops, related_name='stops')
     stop_sequence = IntegerField()
-
+    
+    
     class Meta:
         db_table = 'stop_times'
+        primary_key = peewee.CompositeKey('trip_id', 'stop_id', 'stop_sequence')
+        
     
 class Status(BaseModel):
     route = ForeignKeyField(Routes, related_name='routes')

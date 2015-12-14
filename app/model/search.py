@@ -15,20 +15,9 @@ class TrainSearch:
     
     
     @staticmethod
-    def find_route(start_text, end_text, dow=0):
-        start_id=None
-        end_id=None
-        stations = TrainSearch.get_stops()
-        for s in stations:
-            if start_text.lower().strip()==s.stop_name.lower().strip():
-                start_id = s.stop_id
-        if start_id is None:
-            return "Could not find from station " + start_text
-        for s2 in stations:
-            if end_text.lower().strip()==s2.stop_name.lower().strip():
-                end_id = s2.stop_id
-        if end_id is None:
-            return "Could not find to station: " + end_text
+    def find_route(start_id, end_id, dow=0):
+       
+        
         try:
             dow = int(dow)
         except ValueError:
@@ -49,21 +38,41 @@ class TrainSearch:
               'Sat',
               'Sun']
         #dow = datetime.datetime.today().weekday()
-        print "dow",dow
         
-        sts = db.execute_sql("select trips.trip_id, s1.departure_time, s1.stop_id from_stop_id, s2.stop_id to_stop_id, \
-        s2.arrival_time, trips.direction_id from stop_times s1 inner join \
-        trips on (trips.trip_id = s1.trip_id) inner join stop_times s2 on \
-        (trips.trip_id = s2.trip_id) join routes on (routes.route_id=trips.route_id) where routes.route_type=3 AND s1.stop_id=%s and s2.stop_id=%s AND trips.trip_id \
-        LIKE %s group by s1.departure_time order by s1.departure_time" , (start_id, end_id, "%"+days[dow]+"%"))
-        print sts
+        
+        #from trips - day of week
+        #from stops - 
+        # sts = db.execute_sql("select trips.trip_id, s1.departure_time, s1.stop_id from_stop_id, s2.stop_id to_stop_id, \
+#         s2.arrival_time, trips.direction_id from stop_times s1 inner join \
+#         trips on (trips.trip_id = s1.trip_id) inner join stop_times s2 on \
+#         (trips.trip_id = s2.trip_id) join routes on (routes.route_id=trips.route_id) where routes.route_type=3 AND s1.stop_id=%s and s2.stop_id=%s AND trips.trip_id \
+#         LIKE %s group by s1.departure_time order by s1.departure_time" , (start_id, end_id, "%"+days[dow]+"%"))
+#
+        sts = db.execute_sql("SELECT DISTINCT trips.trip_id, s1.departure_time,s2.arrival_time, s1.stop_id from_stop_id, \
+        s2.stop_id to_stop_id from stop_times s1 inner join trips on \
+        trips.trip_id=s1.trip_id inner join routes on routes.route_id=trips.route_id \
+        inner join stop_times s2 on  (trips.trip_id = s2.trip_id) WHERE \
+        s1.stop_id=%s AND s2.stop_id=%s AND trips.trip_id LIKE %s AND routes.route_type=2 \
+        AND  s1.departure_time<s2.departure_time GROUP BY departure_time", (start_id, end_id, "%"+days[dow]+"%"))
+        
         final_list = []
         
         for st in sts:
-            sched = ComposedSchedule(st[0],st[1],st[2],st[3],st[4], st[5])
+            print st[0]
+            sched = ComposedSchedule(st[0],st[1],st[2],st[3],st[4])
             final_list.append(sched.__dict__) 
         return final_list
         
+    @staticmethod
+    def find_trip(_id):
+        trips = []
+        
+        times = StopTimes.select().where(StopTimes.trip==_id).order_by(StopTimes.departure_time)
+        for t in times:
+            print t
+            trips.append(model_to_dict(t))
+        return trips
+
     @staticmethod
     def get_stops():
         return Stops.select(Stops.stop_name, Routes.route_id, Stops.stop_id).join(StopTimes).join(Trips).join(Routes).where(Routes.route_type == 2).group_by(Stops)
