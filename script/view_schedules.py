@@ -2,7 +2,7 @@ import time
 import datetime
 import sys
 sys.path.append( 'app/model/')
-from models import db, CalendarDates, Routes, Stops, StopTimes, Trips
+from models import db, Routes, Stops, StopTimes, Trips
 
 db.connect()
 
