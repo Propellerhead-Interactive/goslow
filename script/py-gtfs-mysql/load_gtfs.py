@@ -2,6 +2,7 @@
 
 import csv
 import MySQLdb
+import codecs
 import settings
 
 def is_numeric(s):
@@ -24,17 +25,25 @@ def main():
         print 'processing %s' % table
         f = open('gtfs/%s.txt' % table, 'r')
         reader = csv.reader(f)
+        
         columns = reader.next()
+        newcolumns = []
+        for c in columns:
+            print c
+            c=c.decode('utf-8-sig').encode('utf-8')
+            print c
+            newcolumns.append(c.replace("\xef\xbb\xbf",""))
         for row in reader:
             insert_row = []
             for value in row:
-
+                value = value.decode('utf-8-sig').encode('utf-8')
+                print value
                 if not is_numeric(value):
                     insert_row.append('"' + MySQLdb.escape_string(value) + '"')
                 else:
                     insert_row.append(value)
 
-            insert_sql = "INSERT INTO %s (%s) VALUES (%s);" % (table, ','.join(columns), ','.join(insert_row))        
+            insert_sql = "INSERT INTO %s (%s) VALUES (%s);" % (table, ','.join(newcolumns), ','.join(insert_row))  
             cursor.execute(insert_sql)
             conn.commit()
 
