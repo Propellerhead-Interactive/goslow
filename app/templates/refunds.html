@@ -1,82 +1,58 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>GoSlow - Bootstrap 4 Alpha</title>
-
-    <!-- Bootstrap core CSS -->
-    {% assets "common_css" %}
-      <link href="{{ ASSET_URL }}" rel="stylesheet">
-    {% endassets %}
-
-    <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
-
-      .navbar {
-        margin-bottom: 20px;
-      }
-    </style>
-  </head>
-
-  <body>
-
-    <div class="container">
-      <nav class="navbar navbar-light bg-faded">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
-          &#9776;
-        </button>
-        <div class="collapse navbar-toggleable-xs" id="navbar-header">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <ul class="nav navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-          </ul>
-          <form class="form-inline pull-xs-right">
-            <input class="form-control" type="text" placeholder="Search">
-            <button class="btn btn-success-outline" type="submit">Search</button>
-          </form>
-        </div>
-      </nav> <!-- /navbar -->
-
-      <!-- Main component for a primary marketing message or call to action -->
+{% extends "layout.html" %}
+{% block body %}
+      <h1>Refund</h1>
       <div class="jumbotron">
-        <h1>Navbar example</h1>
-        <p>This example is a quick exercise to illustrate how the default responsive navbar works. It's placed within a <code>.container</code> to limit its width and will scroll with the rest of the page's content.</p>
-        <p>At the smallest breakpoint, the collapse plugin is used to hide the links and show a menu button to toggle the collapsed content.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/navbar" role="button">View navbar docs &raquo;</a>
-        </p>
+        <form>
+          <fieldset class="form-group">
+            <label for="email">PRESTO Card Number</label>
+            <input type="text" class="form-control" id="prestocard_number" placeholder="Enter PRESTO Card Number">
+            <div class="checkbox">
+              <label>
+                 <small><input type="checkbox"> Save for future refunds</small>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email">
+            <div class="checkbox">
+              <label>
+                 <small><input type="checkbox"> Save for future refunds</small>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="date">Date of Travel</label>
+            <input type="text" class="form-control" id="datepicker" placeholder="Date of Travel">
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label for="depart_station">Departing Station</label>
+            <select class="form-control" id="depart_station">
+              <option value="" disabled selected>Select your departing station</option>
+              {% for s in stops %}
+                <option value="{{s.stop_id}}">{{s.stop_name}}</option>
+              {% endfor %}
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="arrival_station">Arrival Station</label>
+            <select class="form-control" id="arrival_station">
+              
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="depart_time">Time Departed</label>
+            <select class="form-control" id="depart_time">
+              
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <small class="text-muted">We'll never share the information you enter with anyone else. We only keep refund data associated with date travelled, departing/arriving stations and departure time for reporting/analyzing Go Transit delays.</small>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
-
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    {% assets "common_js" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-  </body>
-</html>
+{% endblock %}

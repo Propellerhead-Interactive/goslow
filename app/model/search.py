@@ -58,7 +58,6 @@ class TrainSearch:
         final_list = []
         
         for st in sts:
-            print st[0]
             sched = ComposedSchedule(st[0],st[1],st[2],st[3],st[4])
             final_list.append(sched.__dict__) 
         return final_list

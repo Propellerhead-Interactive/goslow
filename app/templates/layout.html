@@ -36,7 +36,7 @@
           &#9776;
         </button>
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">GoSlow</a>
           <ul class="nav navbar-nav">
             <li class="nav-item active">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -60,13 +60,62 @@
 
       <!-- Main component for a primary marketing message or call to action -->
     {% block body %}{% endblock %}
+    </div> <!-- /container -->
 
-    <!-- Bootstrap core JavaScript
+
+        <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     {% assets "common_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+
+    <script>
+      $(document).ready(function(){
+        var depart_station, arrival_station, depart_time, travel_date;
+
+        $('#prestocard_number').mask('0000 0000 0000 00000');
+
+        var picker = new Pikaday({
+          field: document.getElementById('datepicker'),
+          minDate: moment().subtract(7, 'days').toDate(),
+          maxDate: moment().toDate(),
+          onSelect: function(){
+            travel_date = moment(this.getDate()).day();
+          }
+        });
+
+        picker.setDate(moment().toDate());
+
+        $('form').on('change', '#depart_station',function(){
+          $('#arrival_station, #depart_time').empty();
+          var $this = $(this);
+          if($(this).val() != ""){
+            $.get('/api/go/stops/' + $(this).val(), function(r){
+              $.each(r.routes, function(i, e){
+                if(e.stop_id != $this.val()){
+                  $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
+                }
+              });
+            });
+
+            depart_station = $this.val();
+          }
+        });
+
+        $('form').on('change', '#arrival_station', function(){
+          var $this = $(this);
+          arrival_station = $this.val();
+          $.get('/api/go/search/' + depart_station + '/' + arrival_station + '/' + travel_date, function(r){
+            $('#depart_time').empty();
+            $.each(r.trips, function(i, e){
+              $('#depart_time').append('<option value="' + e.trip_id + '">' + e.departure_time + '</option>');
+            });
+          });
+        });
+      });
+    </script>
   </body>
 </html>

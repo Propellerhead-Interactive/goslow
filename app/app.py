@@ -48,7 +48,8 @@ def wordfun():
 
 @app.route("/refund")
 def refund():
-    return render_template("refunds.html")
+    s = TrainSearch.get_stops()
+    return render_template("refunds.html", stops=s)
     
 #################API#######################
 
