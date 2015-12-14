@@ -77,7 +77,7 @@ class TrainSearch:
 
     @staticmethod
     def get_stops_from_origin(from_station):
-        arr_init = Routes.select(Stops.stop_id, Stops.stop_name, Routes.route_id).distinct().join(Trips).join(StopTimes).join(Stops).where(Routes.route_type ==2, Stops.stop_name == from_station)
+        arr_init = Routes.select(Stops.stop_id, Stops.stop_name, Routes.route_id).distinct().join(Trips).join(StopTimes).join(Stops).where(Routes.route_type ==2, Stops.stop_id == from_station)
         arr_init = arr_init.alias('b')
         arrst = Stops.select(Stops, Routes.route_id).join(StopTimes).join(Trips).join(Routes).join(arr_init, on=(arr_init.c.route_id == Routes.route_id)).group_by(Stops.stop_name)
         return arrst

@@ -12,11 +12,20 @@ from utils import Utils
 sys.path.insert(0, 'app/model/')
 from models import Routes, Status
 
+from flask_assets import Environment
+from webassets.loaders import PythonLoader as PythonAssetsLoader
+import assets
+
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
     use_reloader=True
 )
+
+assets_env = Environment(app)
+assets_loader = PythonAssetsLoader(assets)
+for name, bundle in assets_loader.load_bundles().iteritems():
+        assets_env.register(name, bundle)
 
 @app.route("/")
 def hello():
@@ -36,6 +45,10 @@ def hello():
 def wordfun():
     items = Utils.frequent_words(20)
     return render_template("delays.html", items=items)
+
+@app.route("/refund")
+def refund():
+    return render_template("refunds.html")
     
 #################API#######################
 
