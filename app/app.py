@@ -1,5 +1,4 @@
 import sys, json
-<<<<<<< HEAD
 from flask import Flask, jsonify, render_template, request
 from flask.ext.autodoc import Autodoc
 from playhouse.shortcuts import *
