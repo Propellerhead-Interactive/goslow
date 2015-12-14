@@ -73,7 +73,7 @@ class TrainSearch:
 
     @staticmethod
     def get_stops():
-        return Stops.select(Stops.stop_name, Routes.route_id, Stops.stop_id).join(StopTimes).join(Trips).join(Routes).where(Routes.route_type == 2).group_by(Stops)
+        return Stops.select(Stops.stop_name, Routes.route_id, Stops.stop_id, Stops.stop_lat, Stops.stop_lon).join(StopTimes).join(Trips).join(Routes).where(Routes.route_type == 2).group_by(Stops)
 
     @staticmethod
     def get_stops_from_origin(from_station):
