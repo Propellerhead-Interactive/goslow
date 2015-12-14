@@ -1,10 +1,13 @@
-<h1>Go Slow</h1>
+{% extends "layout.html" %}
+{% block body %}
 
-<h2># of times @GoTransit tweets 'delay': {{ words.delay }}</h2>
-<h2># of times @GoTransit tweets 'sorry': {{ words.sorry }}</h2>
-<h2># of times @GoTransit tweets 'switch': {{ words.switch }}</h2>
-<h2># of times @GoTransit tweets 'signal': {{ words.signal }}</h2>
-<h2># of times @GoTransit tweets 'problem': {{ words.problem }}</h2>
-<h2># of times @GoTransit tweets 'issue': {{ words.issue}}</h2>
-<h2># of times @GoTransit tweets 'cancel': {{ words.cancel}}</h2>
-<h2># of times @GoTransit tweets 'out of service': {{ words.oos}}</h2>
+<h5># of times @GoTransit tweets 'delay': {{ words.delay }}</h5>
+<h5># of times @GoTransit tweets 'sorry': {{ words.sorry }}</h5>
+<h5># of times @GoTransit tweets 'switch': {{ words.switch }}</h5>
+<h5># of times @GoTransit tweets 'signal': {{ words.signal }}</h5>
+<h5># of times @GoTransit tweets 'problem': {{ words.problem }}</h5>
+<h5># of times @GoTransit tweets 'issue': {{ words.issue}}</h5>
+<h5># of times @GoTransit tweets 'cancel': {{ words.cancel}}</h5>
+<h5># of times @GoTransit tweets 'out of service': {{ words.oos}}</h5>
+
+{% endblock %}
