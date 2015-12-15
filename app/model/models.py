@@ -30,7 +30,6 @@ class Users(BaseModel):
     class Meta:
         db_table = 'users'
         
-<<<<<<< HEAD
         
 class Keys(BaseModel):
     id = IntegerField(primary_key=True)
@@ -40,8 +39,7 @@ class Keys(BaseModel):
         db_table = 'keys'
 
 
-=======
->>>>>>> 681e966c9028ee2aadda67c596b9efb8dbf06c59
+
 class Tweet(BaseModel):
     content = TextField()
     tweet_id = TextField()

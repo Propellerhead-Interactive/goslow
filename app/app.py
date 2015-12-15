@@ -1,14 +1,13 @@
 import sys, json
+sys.path.append( 'app/model/')
+sys.path.append( 'app/helper/')
+sys.path.append( 'app/lib/')
+
 
 from flask import Flask, jsonify,request, g, session, redirect, url_for, flash, render_template
 from flask.ext.autodoc import Autodoc
 from playhouse.shortcuts import *
 from flask_github2 import GitHub
-
-import sys
-sys.path.append( 'app/model/')
-sys.path.append( 'app/helper/')
-sys.path.append( 'app/lib/')
 
 from search import TrainSearch
 from models import *
@@ -50,9 +49,16 @@ def before_request():
     g.user = None
     print session
     if 'user_id' in session:
-        
         g.user = Users.select().where(Users.id==session['user_id']).get()
-
+        
+@app.context_processor
+def inject_user():
+    t = token_getter()
+    if not t == "":
+        data = github.get("user")
+        return dict(user_data=data)
+    else:
+        return dict(user_data=dict())
 
 @app.after_request
 def after_request(response):
@@ -101,8 +107,11 @@ def token_getter():
     a = ""
     if user is not None:
         a= user.github_access_token
-    else:
+    elif  session.has_key('token'):
         a= session['token']
+    else:
+        a=""
+        
     return a
 #================= APP ========================
 
