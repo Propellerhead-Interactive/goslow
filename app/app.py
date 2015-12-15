@@ -1,4 +1,4 @@
-import sys, json
+import sys, json, uuid
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
 sys.path.append( 'app/lib/')
@@ -7,7 +7,7 @@ sys.path.append( 'app/lib/')
 from flask import Flask, jsonify,request, g, session, redirect, url_for, flash, render_template
 from flask.ext.autodoc import Autodoc
 from playhouse.shortcuts import *
-from flask_github2 import GitHub
+from flask_github import GitHub
 
 from search import TrainSearch
 from models import *
@@ -47,9 +47,13 @@ for name, bundle in assets_loader.load_bundles().iteritems():
 @app.before_request
 def before_request():
     g.user = None
-    print session
-    if 'user_id' in session:
-        g.user = Users.select().where(Users.id==session['user_id']).get()
+    print session['token']
+    if 'token' in session:
+        u = Users.select().where(Users.github_access_token==session['token']).get()
+        g.user = u
+        session["user_id"]=g.user.id
+       
+        
         
 @app.context_processor
 def inject_user():
@@ -62,19 +66,18 @@ def inject_user():
 
 @app.after_request
 def after_request(response):
-    session['user'] = None
+    #session['user'] = None
     return response
-
 
 @app.route('/login')
 def login():
     return github.authorize()
 
-@app.route('/me')
-def me():
-    me = github.get('user')
-    x = me["login"]
-    return jsonify({"me":me})
+# @app.route('/me')
+# def me():
+#     me = github.get('user')
+#     x = me["login"]
+#     return jsonify({"me":me})
        
     
 @app.route('/github-callback')
@@ -99,6 +102,7 @@ def authorized(oauth_token):
     user.username=x
     user.save()
     session['user'] = user
+    
     return redirect(next_url)
     
 @github.access_token_getter
@@ -109,6 +113,7 @@ def token_getter():
         a= user.github_access_token
     elif  session.has_key('token'):
         a= session['token']
+        
     else:
         a=""
         
@@ -139,7 +144,7 @@ def refund():
     s = TrainSearch.get_stops()
     return render_template("refunds.html", stops=s)
     
-################# API #######################
+################# API HTML PAGES #######################
 
 @app.route("/api")
 def api():
@@ -158,8 +163,12 @@ def api_docs():
     
 @app.route("/api/keys")
 def api_key_index():
-    keys = Keys.select()
-    
+    if g.user:
+        
+        keys_raw = Keys.select().where(Keys.user==g.user)
+        keys = [k for k in keys_raw]
+    else:
+        keys = []
     return render_template("keys.html", keys = keys)
     
 @app.route("/api/status")
@@ -170,9 +179,19 @@ def api_status_index():
 @app.route("/api/keys/create", methods=['POST'])
 def api_key_create():
     '''Adds a new Key to the system'''
-    #add key
+    key = Keys.create(api_key=uuid.uuid1(), name=request.form['name'], user=g.user)
     
-    return render_template("keys.html")#, keys = keys)
+    return  redirect("/api/keys")
+    
+@app.route("/api/keys/del", methods=['POST'])
+def api_key_delete():
+    '''REmove a  Key to the system'''
+    
+    key = Keys.delete().where(Keys.api_key==request.form["api_key"])
+    key.execute()
+    
+    return  redirect("/api/keys")
+
 
 #================= Actual API ==============================
 

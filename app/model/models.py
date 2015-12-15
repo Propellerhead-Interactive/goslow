@@ -32,8 +32,9 @@ class Users(BaseModel):
         
         
 class Keys(BaseModel):
-    id = IntegerField(primary_key=True)
+    id = PrimaryKeyField()
     api_key = TextField()   
+    name = TextField()
     user =  ForeignKeyField(Users, related_name='keys')  
     class Meta:
         db_table = 'keys'
@@ -50,7 +51,8 @@ class Tweet(BaseModel):
     sentiment_level = DecimalField()
 
 db.create_tables([Users, Tweet], safe=True) 
-db.create_tables([Keys], safe=True)    
+db.create_tables([Keys], safe=True) 
+   
 
 
 class CalendarDates(BaseModel):

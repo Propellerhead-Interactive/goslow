@@ -14,7 +14,7 @@
 			                <form class="form-inline" role="form" method="post" action="/api/keys/create">
 			                    <div class="form-group">
 			                        <label class="sr-only" for="key-description">Description</label>
-			                        <input type="text" name="d" class="form-control" id="key-description" placeholder="Enter a description">
+			                        <input type="text" name="name" class="form-control" id="key-description" placeholder="Enter a description">
 			                    </div>
 			                    <button type="submit" class="btn btn-default">Create Key</button>
 			                </form>
@@ -29,17 +29,20 @@
 			                </thead>
 			                <tbody>
 			                     <tr>
-			                            <td>tesst </td>
+														 {% for k in keys %}
+			                            <td>{{k.name}} </td>
 			                            <td>
-			                                <code>25e18288-0ab1-45ba-89e2-e92bebc1aea3</code>
+			                                <code>{{k.api_key}}</code>
 			                            </td>
 			                            <td>
-			                                <form class="form-inline" role="form" method="post" action="/api/keys">
-			                                    <input type="hidden" name="key" value="25e18288-0ab1-45ba-89e2-e92bebc1aea3">
-			                                    <button type="submit" class="btn btn-primary btn-xs" name="action" value="delete">Delete</button>
+			                                <form class="form-inline" role="form" method="POST" action="/api/keys/del">
+			                                    <input type="hidden" name="api_key" value="{{k.api_key}}">
+			                                    <button type="submit" class="btn btn-primary btn-xs" value="delete">Delete</button>
 			                                </form>
 			                            </td>
+																	
 			                        </tr>
+															{% endfor %}
 			                                    </tbody>
 			            </table>
 			            </div>

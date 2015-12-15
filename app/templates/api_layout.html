@@ -62,12 +62,16 @@
               <a class="nav-link" href="/api/status">Status</a>
             </li-->
           </ul>
-					{% if not user_data==None %}
 					<div class="pull-xs-right">
+					{% if user_data.has_key("avatar_url") %}
+					
 						<img src="{{user_data.avatar_url}}" height="50"/>
 						
-					</div>
+					
+					{% else %}
+						<a href="/login" class="btn btn-default">Login with Github</a>
 					{% endif %}
+					</div>
           <!--form class="form-inline pull-xs-right">
             <input class="form-control" type="text" placeholder="Search">
             <button class="btn btn-success-outline" type="submit">Search</button>
