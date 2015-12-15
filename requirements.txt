@@ -6,7 +6,7 @@ BeautifulSoup==3.2.1
 apscheduler==3.0.3
 nltk==3.0
 splinter==0.7.3
-selenium==2.2.0
+selenium==2.48.0
 Flask-Assets==0.11
 Flask-Autodoc==0.1.2
 GitHub-Flask==3.1.0

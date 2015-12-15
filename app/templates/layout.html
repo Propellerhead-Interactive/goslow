@@ -71,51 +71,5 @@
     {% assets "common_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-
-    <script>
-      $(document).ready(function(){
-        var depart_station, arrival_station, depart_time, travel_date;
-
-        $('#prestocard_number').mask('0000 0000 0000 00000');
-
-        var picker = new Pikaday({
-          field: document.getElementById('datepicker'),
-          minDate: moment().subtract(7, 'days').toDate(),
-          maxDate: moment().toDate(),
-          onSelect: function(){
-            travel_date = moment(this.getDate()).day();
-          }
-        });
-
-        picker.setDate(moment().toDate());
-
-        $('form').on('change', '#depart_station',function(){
-          $('#arrival_station, #depart_time').empty();
-          var $this = $(this);
-          if($(this).val() != ""){
-            $.get('/api/go/stops/' + $(this).val(), function(r){
-              $.each(r.routes, function(i, e){
-                if(e.stop_id != $this.val()){
-                  $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
-                }
-              });
-            });
-
-            depart_station = $this.val();
-          }
-        });
-
-        $('form').on('change', '#arrival_station', function(){
-          var $this = $(this);
-          arrival_station = $this.val();
-          $.get('/api/go/search/' + depart_station + '/' + arrival_station + '/' + travel_date, function(r){
-            $('#depart_time').empty();
-            $.each(r.trips, function(i, e){
-              $('#depart_time').append('<option value="' + e.trip_id + '">' + e.departure_time + '</option>');
-            });
-          });
-        });
-      });
-    </script>
   </body>
 </html>

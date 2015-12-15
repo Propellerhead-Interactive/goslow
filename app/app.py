@@ -1,8 +1,10 @@
 import sys, json
-from flask import Flask, jsonify,request, g, session, redirect, url_for, flash
+
+from flask import Flask, jsonify,request, g, session, redirect, url_for, flash, render_template
 from flask.ext.autodoc import Autodoc
-from flask import render_template
 from playhouse.shortcuts import *
+from flask_github2 import GitHub
+
 import sys
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
@@ -10,9 +12,8 @@ sys.path.append( 'app/lib/')
 
 from search import TrainSearch
 from models import *
+from refund import Refund
 from utils import Utils
-from flask_github2 import GitHub
-#from flask.ext.github import GitHub
 
 sys.path.insert(0, 'app/model/')
 from models import Routes, Status
@@ -193,7 +194,6 @@ def the_route_times(systemID,routeID):
     """shows all the times for the given route."""
     return jsonify({"message":"usage:TBD"})
  
- 
 #shows cloest station to the person
 @app.route("/api/<systemID>/close/<lat>/<lon>",methods = ['GET'])
 @auto.doc()
@@ -201,7 +201,6 @@ def the_closest_stop(systemID, lat, lon):
     """Given Latitude and Logitude coords, returns the closest station"""
     s = TrainSearch.find_closest(lat, lon)
     return jsonify({"stop":s})
-
    
 #shows the given status for the routes
 @app.route("/api/<systemID>/routes/<routeID>/status",methods = ['GET'])
@@ -209,15 +208,12 @@ def the_closest_stop(systemID, lat, lon):
 def the_route_status(systemID,routeID):
     """returns the details about a given route, including current status if available."""
     return jsonify({"message":"usage:TBD"})
-    
 
 # @app.route("/api/<systemID>/routes/<routeID>/schedule",methods = ['GET'])
 # @auto.doc()
 # def the_route_schedule(systemID,routeID):
 #     """Shows the given schedule for the routes for today"""
 #     return jsonify({"message":"usage:TBD"})
-    
-
 #
 @app.route("/api/<systemID>/search_today/<from_station_id>/<to_station_id>",methods = ['GET'])
 @auto.doc()
@@ -245,9 +241,6 @@ def the_trip(systemID,trip_id):
     #request.data
     return jsonify({"stops":s})
 
-
-
-
 #Lists all train stations
 @app.route("/api/<systemID>/stops",methods = ['GET'])
 @auto.doc()
@@ -272,6 +265,15 @@ def all_stops_from_origin(systemID, from_station):
             all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })
 
+#Lists all destination stations from origin station
+@app.route("/api/<systemID>/refund",methods = ['POST'])
+def do_refund(systemID):
+    Refund.make_refund(request.form['pc_number'],
+                       request.form['email'],
+                       request.form['travel_date'],
+                       request.form['from_station'],
+                       request.form['to_station'],
+                       request.form['travel_time'])
+
 if __name__ == "__main__":
     app.run()
-
