@@ -6,11 +6,13 @@ from playhouse.shortcuts import *
 import sys
 sys.path.append( 'app/model/')
 sys.path.append( 'app/helper/')
+sys.path.append( 'app/lib/')
+
 from search import TrainSearch
 from models import *
 from utils import Utils
-from flask.ext.github import GitHub
-
+from flask_github2 import GitHub
+#from flask.ext.github import GitHub
 
 sys.path.insert(0, 'app/model/')
 from models import Routes, Status
@@ -23,7 +25,7 @@ app = Flask(__name__)
 
 app.config['GITHUB_CLIENT_ID'] = 'd0155a375a97ba22c38c'
 app.config['GITHUB_CLIENT_SECRET'] = 'e64a177e17970823444c9b1a124c4380d8f4bfd5'
-#app.config['GITHUB_BASE_URL'] = 'https://localhost:5000/api/v3/'
+app.config['GITHUB_BASE_URL'] = 'https://api.github.com/'
 #app.config['GITHUB_AUTH_URL'] = 'https://localhost:5000/login/oauth/'
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
@@ -60,7 +62,13 @@ def after_request(response):
 @app.route('/login')
 def login():
     return github.authorize()
-    
+
+@app.route('/me')
+def me():
+    me = github.get('user')
+    x = me["login"]
+    return jsonify({"me":me})
+       
     
 @app.route('/github-callback')
 @github.authorized_handler
@@ -69,13 +77,19 @@ def authorized(oauth_token):
     if oauth_token is None:
         flash("Authorization failed.")
         return redirect(next_url)
+        
+    session['token'] = oauth_token
     try:
-        users = Users.select().where(Users.github_access_token==oauth_token).get()
+        user = Users.select().where(Users.github_access_token==oauth_token).get()
     except Users.DoesNotExist:
-        user = Users.create(github_access_token = oauth_token)
+        #print str(github.get('/user' ))
+        user = Users.create(github_access_token = oauth_token, username="temp")
         
         
     user.github_access_token = oauth_token
+    s = github.get('user')
+    x = s["login"]
+    user.username=x
     user.save()
     session['user'] = user
     return redirect(next_url)
@@ -83,9 +97,12 @@ def authorized(oauth_token):
 @github.access_token_getter
 def token_getter():
     user = g.user
+    a = ""
     if user is not None:
-        return user.github_access_token
-
+        a= user.github_access_token
+    else:
+        a= session['token']
+    return a
 #================= APP ========================
 
 @app.route("/")
