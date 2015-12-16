@@ -29,6 +29,7 @@ class Users(BaseModel):
     github_access_token = TextField()
     class Meta:
         db_table = 'users'
+   
         
         
 class Keys(BaseModel):
@@ -52,6 +53,7 @@ class Tweet(BaseModel):
 
 db.create_tables([Users, Tweet], safe=True) 
 db.create_tables([Keys], safe=True) 
+
    
 
 
@@ -94,9 +96,18 @@ class StopTimes(BaseModel):
         primary_key = peewee.CompositeKey('trip_id', 'stop_id', 'stop_sequence') 
     
 class Status(BaseModel):
-    route = ForeignKeyField(Routes, related_name='routes')
+    route = TextField()
+    fromStop = TextField()
+    toStop = TextField()
+    train_date = DateField(default=datetime.date)
+    train_time = TextField()
+    delay_time = TextField()
     message = TextField()
-    trip = ForeignKeyField(Trips, related_name='trips')
     created_at = DateTimeField(default=datetime.datetime.now)
+    class Meta:
+        db_table = 'status'
+        
+    
 
+db.create_tables([Status], safe=True) 
 
