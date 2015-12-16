@@ -51,7 +51,6 @@ for name, bundle in assets_loader.load_bundles().iteritems():
 @app.before_request
 def before_request():
     g.user = None
-    print session['token']
     if 'token' in session:
         u = Users.select().where(Users.github_access_token==session['token']).get()
         g.user = u
