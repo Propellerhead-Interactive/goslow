@@ -92,15 +92,17 @@
               {% endfor %}
             </select>
           </fieldset>
-          <fieldset class="form-group">
-            <label for="arrival_station">Arrival Station</label>
-            <select name="to_station"class="form-control" id="arrival_station">
-              
-            </select>
-          </fieldset>
+
           <fieldset class="form-group">
             <label for="depart_time">Time Departed</label>
             <select name="travel_time" class="form-control" id="depart_time">
+              
+            </select>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="arrival_station">Arrival Station</label>
+            <select name="to_station"class="form-control" id="arrival_station">
               
             </select>
           </fieldset>
@@ -135,8 +137,10 @@
           minDate: moment().subtract(7, 'days').toDate(),
           maxDate: moment().toDate(),
           onSelect: function(){
-            travel_dow = moment(this.getDate()).day();
+            travel_dow = moment(this.getDate()).unix();
             travel_date = moment(this.getDate()).date()
+            $('#depart_time, #arrival_station').empty();
+            $('#depart_station').change();
           }
         });
 
@@ -146,31 +150,33 @@
           $('#arrival_station, #depart_time').empty();
           var $this = $(this);
           if($(this).val() != ""){
-            $.get('/api/go/stops/' + $(this).val(), function(r){
-              $.each(r.routes, function(i, e){
-                if(e.stop_id != $this.val()){
-                  $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
-                }
+            $.get('/api/go/stoptimes/' + $('#depart_station').val() + '/' + travel_dow, function(r){
+              $('#depart_time').append('<option value="" selected disabled>Select Departure Time</option>');
+              $.each(r.times, function(i, e){
+                $('#depart_time').append('<option value="' + e.departure_time + '">' + e.departure_time.slice(0,-3) + '</option>');
               });
-
-              $('#arrival_station').change();
             });
-
             depart_station = $this.val();
           }
         });
 
-        $('form').on('change', '#arrival_station', function(){
-          var $this = $(this);
-          arrival_station = $this.val();
-          $.get('/api/go/search/' + depart_station + '/' + arrival_station + '/' + travel_dow, function(r){
-            $('#depart_time').empty();
-            $.each(r.trips, function(i, e){
-              $('#depart_time').append('<option value="' + e.trip_id + '">' + e.departure_time.slice(0,-3) + '</option>');
-            });
-          });
+        $('form').on('change', '#depart_time',function(){
+          $.ajax({
+            url: '/api/go/stops',
+            method: 'POST',
+            data: {
+              'from_station': depart_station,
+              'travel_date': travel_dow,
+              'travel_time': $('#depart_time').val()
+            },
+            success: function(r){
+              $.each(r.stops, function(i, e){
+                $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
+              });
+            }
+          });          
         });
-
+/*
         $('form').on('submit', function(e){
           var $this = $(this);
           e.preventDefault();
@@ -193,6 +199,7 @@
             }
           });
         });
+*/
       });
     </script>
   </body>

@@ -32,6 +32,8 @@ class Refund:
       browser.find_by_name('ctl00$m$WebPartClaimRequisition$ctl00$textboxEmail').fill(email)
       browser.find_by_name('ctl00$m$WebPartClaimRequisition$ctl00$textboxEmailConfirmation').fill(email)
 
+      return "ok"
+
       #browser.find_by_name('ctl00$m$WebPartClaimRequisition$ctl00$buttonSubmitClaim').first.click()
 
       #return browser.find_by_css('#detailsCard span');

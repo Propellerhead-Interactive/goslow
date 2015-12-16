@@ -76,6 +76,7 @@ class Trips(BaseModel):
     service_id = TextField()
     trip_id = TextField(primary_key=True)
     direction_id = IntegerField()
+    block_id = TextField()
 
 #This is a location - contains info on the location
 class Stops(BaseModel):

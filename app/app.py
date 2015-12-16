@@ -263,14 +263,13 @@ def the_route_search_today(systemID,from_station_id,to_station_id):
     return jsonify({"trips":s})
     
 #
-@app.route("/api/<systemID>/search/<from_station_id>/<to_station_id>/<int:dow>",methods = ['GET'])
+@app.route("/api/<systemID>/search/<from_station_id>/<to_station_id>/<int:departure_date>",methods = ['GET'])
 @auto.doc()
-def the_route_search(systemID,from_station_id,to_station_id, dow):
+def the_route_search(systemID,from_station_id,to_station_id, departure_date):
     """Returns the given status for the routes for a gien day of the week. (0 = Monday)"""
-    s = TrainSearch.find_route(from_station_id, to_station_id, dow)
+    s = TrainSearch.find_route(from_station_id, to_station_id, departure_date)
     #request.data
     return jsonify({"trips":s})
-
 
 @app.route("/api/<systemID>/trips/<trip_id>/",methods = ['GET'])
 @auto.doc()
@@ -292,28 +291,49 @@ def all_stops(systemID):
         all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })
 
-#Lists all destination stations from origin station
+#Lists all destination stations on the same line from origin station
 @app.route("/api/<systemID>/stops/<from_station>",methods = ['GET'])
 @auto.doc()
-def all_stops_from_origin(systemID, from_station):
-    """Returns all the stops from any given station"""
-    s = TrainSearch.get_stops_from_origin(from_station) #request.data
+def all_stops_on_line(systemID, from_station):
+    """Returns all the stops on the same line as from_station """
+    s = TrainSearch.get_stops_from_line(from_station) #request.data
     all_r = []
     for rr in s:
         if rr.stop_name.lower() != from_station.lower():
             all_r.append(model_to_dict(rr))
     return jsonify({"routes":all_r })   
 
+#Lists all destination stations on the same line from origin station
+@app.route("/api/<systemID>/stops",methods = ['POST'])
+@auto.doc()
+def all_stops_from_origin(systemID):
+    """Returns all the stops from origin station """
+    s = TrainSearch.get_stops_from_origin(request.form['from_station'],
+                                          request.form['travel_date'],
+                                          request.form['travel_time'])
+    return jsonify({"stops":s })   
+
+@app.route("/api/<systemID>/stoptimes/<from_station_id>/<int:dep_date>",methods = ['GET'])
+@auto.doc()
+def the_stoptimes(systemID,from_station_id, dep_date):
+    """Returns the given status for the routes for a gien day of the week. (0 = Monday)"""
+    s = TrainSearch.find_route(from_station_id, False, dep_date)
+    #request.data
+    return jsonify({"times":s})
+
+
 
 #-------------------SPECIFIC ACTIONS FOR GO--------------
 @app.route("/api/<systemID>/refund",methods = ['POST'])
 def do_refund(systemID):
-    Refund.make_refund(request.form['pc_number'],
+    r = Refund.make_refund(request.form['pc_number'],
                        request.form['email'],
                        request.form['travel_date'],
                        request.form['from_station'],
                        request.form['to_station'],
                        request.form['travel_time'])
+
+    return jsonify({"status": r})
 
 if __name__ == "__main__":
     app.run()

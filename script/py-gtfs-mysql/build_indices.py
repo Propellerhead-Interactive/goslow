@@ -90,7 +90,7 @@ def main():
     
     print 'processing stop_times'
     stop_times(conn)
-    
+    conn.commit()
     conn.close()
 
     print 'done'
