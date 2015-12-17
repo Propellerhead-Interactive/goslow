@@ -100,7 +100,7 @@ class Status(BaseModel):
     route = TextField()
     fromStop = TextField()
     toStop = TextField()
-    train_date = DateField(default=datetime.date)
+    train_date = DateTimeField(default=datetime.datetime.now)
     train_time = TextField()
     delay_time = TextField()
     message = TextField()

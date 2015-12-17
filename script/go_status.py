@@ -35,12 +35,13 @@ def crawl_status():
             route_start = route_stops[0]
             
             route_end = route_stops[-1]
-            delay_of = c[1]
+            delay_of = c[1].split("of")[1].strip()
             current_status = c[2]
             current_detail = c[-1]
             
             route_beginning_stop = " ".join(route_start.strip().split(" ")[:-1])
-            route_beginning_time = route_start[-1]
+            route_beginning_time = route_start.strip().split(" ")[-1]
+            print "test1",route_beginning_time
            
            
             route_end_stop = " ".join(route_end.strip().split(" ")[:-1])
@@ -50,7 +51,7 @@ def crawl_status():
             print "Route",route
             print "route start name", route_beginning_stop
             print "route end name", route_end_stop
-            print "route start time", route_beginning_time
+            print "route start time====", route_beginning_time
             print "delay_of", delay_of
             print "detail", current_detail
             print "from", route_start

@@ -151,9 +151,14 @@ def refund():
 
 @app.route("/history")
 def history():
-    s = Status.select()
-    return render_template("history.html", issues=s)
+    statii = Status.select()
+    return render_template("history.html", issues=statii)
     
+
+@app.route("/history/search")
+def search_history():
+    statii = Status.select()
+    return render_template("history.html", issues=statii)
 
 ################# API HTML PAGES #######################
 
