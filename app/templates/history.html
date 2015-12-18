@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block body %}
+      
+			
+			<div class="row">
+					<div class="col-lg-6">
+			    		 <h1>History of Tardiness</h1>
+					 
+					 </div>
+							
+			</div>
+			<div class="panel panel-default">
+			                    <div class="panel-heading">
+			                <form class="form-inline" role="form" method="post" action="/history/search">
+			                    <div class="form-group">
+			                        <label class="sr-only" for="key-description">Line</label>
+			                        <input type="text" name="name" class="form-control" id="key-description" placeholder="Enter Line">
+			                    </div>
+			                    <button type="submit" class="btn btn-default">Search By Line</button>
+			                </form>
+			            </div>
+			                            <table class="table table-striped table-hover">
+			                <thead>
+			                    <tr>
+														<th>Day</th>
+			                        <th>Line</th>
+			                        <th>Time</th>
+			                        <th>Minutes Late</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                     <tr>
+														 {% for k in issues %}
+														 			 <td>{{k.train_date.strftime("%Y-%m-%d")}} </td>
+			                            <td>{{k.route}} </td>
+			                            <td>
+			                                <code>{{k.train_time}}</code>
+			                            </td>
+			                            <td>
+			                                <code>{{k.delay_time}}</code>
+			                            </td>
+			                         
+																	
+			                        </tr>
+															{% endfor %}
+			                                    </tbody>
+			            </table>
+			            </div>
+			
+
+{% endblock %}

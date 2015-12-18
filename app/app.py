@@ -148,6 +148,18 @@ def wordfun():
 def refund():
     s = TrainSearch.get_stops()
     return render_template("refunds.html", stops=s)
+
+@app.route("/history")
+def history():
+    statii = Status.select()
+    return render_template("history.html", issues=statii)
+    
+
+@app.route("/history/search")
+def search_history():
+    statii = Status.select()
+    return render_template("history.html", issues=statii)
+
 ################# API HTML PAGES #######################
 
 @app.route("/api")
