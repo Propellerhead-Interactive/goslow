@@ -99,14 +99,16 @@ class TrainSearch:
                                 INNER JOIN stop_times ON (stop_times.trip_id = trips.trip_id) \
                                 INNER JOIN stops ON (stop_times.stop_id = stops.stop_id) \
                                 INNER JOIN calendar_dates ON (trips.service_id = calendar_dates.service_id) \
-                                WHERE block_id = (SELECT DISTINCT trips.block_id FROM stop_times \
+                                INNER JOIN (SELECT trips.block_id, stop_times.departure_time, trips.direction_id FROM stop_times \
                                     INNER JOIN trips ON (trips.trip_id = stop_times.trip_id) \
+                                    INNER JOIN calendar_dates on (calendar_dates.service_id = trips.service_id) \
                                     WHERE stop_id=%s \
                                     AND stop_times.departure_time = %s \
-                                    AND calendar_dates.date_timestamp = %s) \
-                                AND calendar_dates.date_timestamp = %s \
-                                AND stop_times.stop_id != %s \
-                                GROUP BY stop_times.stop_id", (from_station, departure_time, departure_date, departure_date, from_station))
+                                    AND calendar_dates.date_timestamp = %s) as phil on (phil.block_id = trips.block_id) \
+                                WHERE calendar_dates.date_timestamp = %s \
+                                and trips.direction_id = phil.direction_id \
+                                and stop_times.departure_time > phil.departure_time \
+                                GROUP BY stop_times.stop_id", (from_station, departure_time, departure_date, departure_date))
 
         for st in sts:
                 final_list.append({'stop_id': st[0], 'stop_name': st[1]})

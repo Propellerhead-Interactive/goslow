@@ -161,6 +161,7 @@
         });
 
         $('form').on('change', '#depart_time',function(){
+          $('#arrival_station').empty();
           $.ajax({
             url: '/api/go/stops',
             method: 'POST',
