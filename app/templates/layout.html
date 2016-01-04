@@ -17,13 +17,15 @@
     {% endassets %}
 
     <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 20px;
-      }
 
       .navbar {
         margin-bottom: 20px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .checkbox {
+        margin-bottom: 0;
       }
     </style>
   </head>
@@ -31,33 +33,25 @@
   <body>
 
     <div class="container">
-      <nav class="navbar navbar-light bg-faded">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
-          &#9776;
-        </button>
-        <div class="collapse navbar-toggleable-xs" id="navbar-header">
-          <a class="navbar-brand" href="#">GoSlow</a>
-          <ul class="nav navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-          </ul>
-          <form class="form-inline pull-xs-right">
-            <input class="form-control" type="text" placeholder="Search">
-            <button class="btn btn-success-outline" type="submit">Search</button>
-          </form>
-        </div>
-      </nav> <!-- /navbar -->
 
+          <header class="navbar navbar-light navbar-static-top bd-navbar" role="banner">
+
+            <div class="clearfix">
+              <button class="navbar-toggler pull-xs-right hidden-sm-up collapsed" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-expanded="false">
+                ☰
+              </button>
+              <a class="navbar-brand hidden-sm-up" href="/">
+                GoSlow
+              </a>
+            </div>
+            <div class="navbar-toggleable-xs collapse" id="bd-main-nav" aria-expanded="false" style="height: 0px;">
+              <nav class="nav navbar-nav">
+                <a class="nav-item nav-link " href="/">GoSlow</a>
+                <a class="nav-item nav-link" href="/refund">Refund My Trip</a>
+                <a class="nav-item nav-link " href="/word_fund">Word Fun</a>
+              </nav>
+            </div>
+          </header>
       <!-- Main component for a primary marketing message or call to action -->
     {% block body %}{% endblock %}
     </div> <!-- /container -->
@@ -71,5 +65,83 @@
     {% assets "common_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+
+    <script>
+      $(document).ready(function(){
+        var depart_station, arrival_station, depart_time, travel_dow, travel_date;
+
+        $('#prestocard_number').mask('0000 0000 0000 00000');
+
+        var picker = new Pikaday({
+          field: document.getElementById('datepicker'),
+          minDate: moment().subtract(7, 'days').toDate(),
+          maxDate: moment().toDate(),
+          onSelect: function(){
+            travel_dow = moment(this.getDate()).unix();
+            travel_date = moment(this.getDate()).date()
+            $('#depart_time, #arrival_station').empty();
+            $('#depart_station').change();
+          }
+        });
+
+        picker.setDate(moment().toDate());
+
+        $('#refund-form').on('change', '#depart_station',function(){
+          $('#arrival_station, #depart_time').empty();
+          var $this = $(this);
+          if($(this).val() != ""){
+            $.get('/api/go/stoptimes/' + $('#depart_station').val() + '/' + travel_dow, function(r){
+              $('#depart_time').append('<option value="" selected disabled>Select Departure Time</option>');
+              $.each(r.times, function(i, e){
+                $('#depart_time').append('<option value="' + e.departure_time + '">' + e.departure_time.slice(0,-3) + '</option>');
+              });
+            });
+            depart_station = $this.val();
+          }
+        });
+
+        $('#refund-form').on('change', '#depart_time',function(){
+          $('#arrival_station').empty();
+          $.ajax({
+            url: '/api/go/stops',
+            method: 'POST',
+            data: {
+              'from_station': depart_station,
+              'travel_date': travel_dow,
+              'travel_time': $('#depart_time').val()
+            },
+            success: function(r){
+              $.each(r.stops, function(i, e){
+                $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
+              });
+            }
+          });          
+        });
+/*
+        $('#refund-form').on('submit', function(e){
+          var $this = $(this);
+          e.preventDefault();
+
+          var deptime = $('#depart_time').val().split('-')[2].indexOf('x') == -1 ? $('#depart_time').val().split('-')[2] : $('#depart_time').val().split('-')[2].replace(/([A-Za-z])\w+/g,'');
+          
+          $.ajax({
+            url: '/api/go/refund',
+            method: 'POST',
+            data: {
+              'pc_number': $('#prestocard_number').val().replace(/\s+/g, ''),
+              'email': $('#email').val(),
+              'travel_date': travel_date,
+              'from_station': $('#depart_station').val(),
+              'to_station': $('#arrival_station').val(),
+              'travel_time': deptime
+            },
+            success: function(r){
+              console.log(r);
+            }
+          });
+        });
+*/
+      });
+    </script>
   </body>
 </html>

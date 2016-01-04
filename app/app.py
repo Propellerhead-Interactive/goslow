@@ -137,7 +137,7 @@ def hello():
     words['cancel'] = Tweet.select().where(Tweet.content.contains('cancel')).count()
     words['oos'] = Tweet.select().where(Tweet.content.contains('out of service')).count()
     
-    return render_template("index.html", words=words)
+    return render_template("index.html", words=words, stops=refund(True))
 
 @app.route("/word_fun")
 def wordfun():
@@ -145,9 +145,12 @@ def wordfun():
     return render_template("delays.html", items=items)
 
 @app.route("/refund")
-def refund():
+def refund(t=False):
     s = TrainSearch.get_stops()
-    return render_template("refunds.html", stops=s)
+    if t:
+        return s
+    else:
+        return render_template("refunds.html", stops=s)
 
 @app.route("/history")
 def history():
