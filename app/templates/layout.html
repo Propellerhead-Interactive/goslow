@@ -9,8 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>GoSlow - Bootstrap 4 Alpha</title>
+    <title>GoSlow</title>
 
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
     <!-- Bootstrap core CSS -->
     {% assets "common_css" %}
       <link href="{{ ASSET_URL }}" rel="stylesheet">
@@ -18,14 +19,73 @@
 
     <style type="text/css">
 
+      html, body {
+        font-family: 'Source Sans Pro', sans-serif;
+        background-color: #ECF0F1;
+      }
+
+      h1, h2 {
+        font-weight: 900;
+      }
+
+      a {
+        color: #2ECC71;
+      }
+
+      select {
+        height: 40px;
+      }
+
       .navbar {
-        margin-bottom: 20px;
-        padding-left: 0;
-        padding-right: 0;
+        margin: 20px 0;
+        border-radius: 0;
+        background-color: #27AE60;
+      }
+
+      .navbar-nav .nav-link {
+        color: #FFF;
+      }
+
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .card, .btn {
+        border-radius: 0;
+      }
+
+      .btn-primary {
+        background-color: #2ECC71;
+        border: 1px solid #2ECC71;
+      }
+
+      .btn-primary:hover {
+        background-color: #27AE60;
+        border: 1px solid #27AE60;
+      }
+
+      .card-block {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-block img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.1;
+        max-width: 150px;
       }
 
       .checkbox {
         margin-bottom: 0;
+      }
+
+      .hero-site-title h1{
+        font-size: 6rem;
+        color: #27AE60;
+        text-shadow: 3px 5px #FFF;
       }
     </style>
   </head>
@@ -33,27 +93,36 @@
   <body>
 
     <div class="container">
-
-          <header class="navbar navbar-light navbar-static-top bd-navbar" role="banner">
-
-            <div class="clearfix">
-              <button class="navbar-toggler pull-xs-right hidden-sm-up collapsed" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-expanded="false">
-                ☰
-              </button>
-              <a class="navbar-brand hidden-sm-up" href="/">
-                GoSlow
-              </a>
-            </div>
-            <div class="navbar-toggleable-xs collapse" id="bd-main-nav" aria-expanded="false" style="height: 0px;">
-              <nav class="nav navbar-nav">
-                <a class="nav-item nav-link " href="/">GoSlow</a>
-                <a class="nav-item nav-link" href="/refund">Refund My Trip</a>
-                <a class="nav-item nav-link " href="/word_fund">Word Fun</a>
-              </nav>
-            </div>
-          </header>
+      <header class="navbar bd-navbar" role="banner">
+        <div class="clearfix">
+          <button class="navbar-toggler pull-xs-right hidden-sm-up collapsed" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-expanded="false">
+            ☰
+          </button>
+          <a class="navbar-brand hidden-sm-up" href="/">
+            GoSlow
+          </a>
+        </div>
+        <div class="navbar-toggleable-xs collapse" id="bd-main-nav" aria-expanded="false" style="height: 0px;">
+          <nav class="nav navbar-nav">
+            <a class="nav-item nav-link " href="/">GO MORE! STOP LESS!</a>
+            <a class="nav-item nav-link" href="/#refund">Refund My Trip</a>
+            <a class="nav-item nav-link " href="/#whatisthis">What is this?</a>
+          </nav>
+        </div>
+      </header>
       <!-- Main component for a primary marketing message or call to action -->
+      <div class="text-xs-center">
+        <div class="hero-site-title">
+          <h1>GO MORE! STOP LESS!</h1>
+        </div>
+      </div>
     {% block body %}{% endblock %}
+
+    <footer>
+      <p class="pull-xs-right"><a href="#">Back to top</a></p>
+      <p>© 2016 Company, Inc.</p>
+    </footer>
+
     </div> <!-- /container -->
 
 
@@ -80,6 +149,8 @@
             travel_dow = moment(this.getDate()).unix();
             travel_date = moment(this.getDate()).date()
             $('#depart_time, #arrival_station').empty();
+            $('#depart_time').append('<option value="" selected disabled>--</option>');
+            $('#arrival_station').append('<option value="" selected disabled>--</option>');
             $('#depart_station').change();
           }
         });
@@ -88,6 +159,7 @@
 
         $('#refund-form').on('change', '#depart_station',function(){
           $('#arrival_station, #depart_time').empty();
+          $('#arrival_station').append('<option value="" selected disabled>--</option>');
           var $this = $(this);
           if($(this).val() != ""){
             $.get('/api/go/stoptimes/' + $('#depart_station').val() + '/' + travel_dow, function(r){
@@ -111,6 +183,7 @@
               'travel_time': $('#depart_time').val()
             },
             success: function(r){
+              $('#arrival_station').append('<option value="" selected disabled>Select Your Arrival Station</option>');
               $.each(r.stops, function(i, e){
                 $('#arrival_station').append('<option value="' + e.stop_id + '">' + e.stop_name + '</option>');
               });
