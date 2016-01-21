@@ -28,8 +28,12 @@
         font-weight: 900;
       }
 
-      a {
+      a, a:hover, a:focus, a:active {
         color: #2ECC71;
+      }
+
+      a:hover {
+        text-decoration: underline;
       }
 
       select {
@@ -42,7 +46,25 @@
         background-color: #27AE60;
       }
 
+      .navbar-toggler {
+        font-family: 'Arial', sans-serif !important;
+      }
+
       .navbar-nav .nav-link {
+        color: #FFF;
+      }
+
+      .nav-item:not(:last-child) {
+        border-right: 1px solid #FFF;
+        padding-right: 1rem;
+      }
+
+      .navbar-brand {
+        font-weight: 900;
+        color: #FFF;
+      }
+
+      .navbar-brand:hover {
         color: #FFF;
       }
 
@@ -99,14 +121,19 @@
             ☰
           </button>
           <a class="navbar-brand hidden-sm-up" href="/">
-            GoSlow
+            GO MORE! STOP LESS!
           </a>
         </div>
         <div class="navbar-toggleable-xs collapse" id="bd-main-nav" aria-expanded="false" style="height: 0px;">
-          <nav class="nav navbar-nav">
-            <a class="nav-item nav-link " href="/">GO MORE! STOP LESS!</a>
-            <a class="nav-item nav-link" href="/#refund">Refund My Trip</a>
+          <nav class="nav navbar-nav hidden-xs-down">
+            <a class="navbar-brand" href="/">
+              GO MORE! STOP LESS!
+            </a>
+          </nav>
+          <nav class="nav navbar-nav pull-sm-right">
             <a class="nav-item nav-link " href="/#whatisthis">What is this?</a>
+            <a class="nav-item nav-link " href="/#bythenumbers">By The Numbers</a>
+            <a class="nav-item nav-link" href="/#refund">Refund My Trip</a>
           </nav>
         </div>
       </header>
@@ -118,9 +145,10 @@
       </div>
     {% block body %}{% endblock %}
 
+    <hr />
     <footer>
       <p class="pull-xs-right"><a href="#">Back to top</a></p>
-      <p>© 2016 Company, Inc.</p>
+      <p><a href="http://propellerheadlabs.io">A Propellerhead Labs Initiative</a></p>
     </footer>
 
     </div> <!-- /container -->
