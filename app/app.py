@@ -1,7 +1,7 @@
 import sys, json, uuid
-sys.path.append( 'app/model/')
-sys.path.append( 'app/helper/')
-sys.path.append( 'app/lib/')
+sys.path.append( './app/model/')
+sys.path.append( './app/helper/')
+sys.path.append( './app/lib/')
 
 
 from flask import Flask, jsonify,request, g, session, redirect, url_for, flash, render_template
@@ -14,8 +14,7 @@ from models import *
 from refund import Refund
 from utils import Utils
 
-sys.path.insert(0, 'app/model/')
-from models import Routes, Status
+
 
 from flask_assets import Environment
 from webassets.loaders import PythonLoader as PythonAssetsLoader
@@ -149,16 +148,28 @@ def refund():
     s = TrainSearch.get_stops()
     return render_template("refunds.html", stops=s)
 
-@app.route("/history")
+@app.route("/history",methods = ['GET'])
 def history():
     statii = Status.select()
     return render_template("history.html", issues=statii)
     
 
-@app.route("/history/search")
+@app.route("/history/search",methods = ['POST'])
 def search_history():
-    statii = Status.select()
+    
+    statii = Status.select().where(Status.route.contains(request.form["q"]))
     return render_template("history.html", issues=statii)
+    
+@app.route("/schedule/<route_id>",methods = ['GET'])
+def today_schedule(route_id):
+    route = Routes.select().where(Routes.route_short_name==route_id).get()
+    
+    stops = StopTimes.raw("Select * from stop_times inner join stops inner join trips where trips.route_id==%s", (route_id))
+    
+    #join(Stops).join("Trips").where(Trips.route_id==route.route_id)
+    
+    return render_template("schedule.html", route=route)
+
 
 ################# API HTML PAGES #######################
 

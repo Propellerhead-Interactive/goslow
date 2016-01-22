@@ -70,6 +70,8 @@ class Routes(BaseModel):
     route_short_name = TextField()
     route_long_name = TextField()
     route_type = IntegerField()
+    class Meta:
+        db_table="routes"
 
 class Trips(BaseModel):
     route = ForeignKeyField(Routes, related_name='routeid')
@@ -77,6 +79,8 @@ class Trips(BaseModel):
     trip_id = TextField(primary_key=True)
     direction_id = IntegerField()
     block_id = TextField()
+    class Meta:
+        db_table="trips"
 
 #This is a location - contains info on the location
 class Stops(BaseModel):
@@ -84,6 +88,8 @@ class Stops(BaseModel):
     stop_name = TextField()
     stop_lat = FloatField()
     stop_lon = FloatField()
+    class Meta:
+        db_table="stops"
 
 class StopTimes(BaseModel):
     trip = ForeignKeyField(Trips, related_name='tripid')
