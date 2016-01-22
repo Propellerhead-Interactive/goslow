@@ -3,6 +3,8 @@ sys.path.append( './app/model/')
 sys.path.append( './app/helper/')
 sys.path.append( './app/lib/')
 
+import time
+from datetime import date
 
 from flask import Flask, jsonify,request, g, session, redirect, url_for, flash, render_template
 from playhouse.shortcuts import *
@@ -122,12 +124,12 @@ def token_getter():
     return a
 #================= APP ========================
 
-
-
 @app.route("/")
 def hello():
+    since = date.fromtimestamp(float(Tweet.get(Tweet.id == 1).tweet_time)).strftime('%B %d, %Y')
     words = {}
     words['delay'] = Tweet.select().where(Tweet.content.contains('delay')).count()
+    words['late'] = Tweet.select().where(Tweet.content.contains('late')).count()
     words['sorry'] = Tweet.select().where(Tweet.content.contains('sorry')).count()
     words['signal'] = Tweet.select().where(Tweet.content.contains('signal')).count()
     words['switch'] = Tweet.select().where(Tweet.content.contains('switch')).count()
@@ -135,8 +137,9 @@ def hello():
     words['issue'] = Tweet.select().where(Tweet.content.contains('issue')).count()
     words['cancel'] = Tweet.select().where(Tweet.content.contains('cancel')).count()
     words['oos'] = Tweet.select().where(Tweet.content.contains('out of service')).count()
+    words['ontime'] = Tweet.select().where(Tweet.content.contains('on time')).count()
     
-    return render_template("index.html", words=words)
+    return render_template("index.html", words=words, stops=refund(True), since=since)
 
 @app.route("/word_fun")
 def wordfun():
@@ -144,9 +147,12 @@ def wordfun():
     return render_template("delays.html", items=items)
 
 @app.route("/refund")
-def refund():
+def refund(t=False):
     s = TrainSearch.get_stops()
-    return render_template("refunds.html", stops=s)
+    if t:
+        return s
+    else:
+        return render_template("refunds.html", stops=s)
 
 @app.route("/history",methods = ['GET'])
 def history():

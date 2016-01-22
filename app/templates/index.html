@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h5># of times @GoTransit tweets 'delay': {{ words.delay }}</h5>
-<h5># of times @GoTransit tweets 'sorry': {{ words.sorry }}</h5>
-<h5># of times @GoTransit tweets 'switch': {{ words.switch }}</h5>
-<h5># of times @GoTransit tweets 'signal': {{ words.signal }}</h5>
-<h5># of times @GoTransit tweets 'problem': {{ words.problem }}</h5>
-<h5># of times @GoTransit tweets 'issue': {{ words.issue}}</h5>
-<h5># of times @GoTransit tweets 'cancel': {{ words.cancel}}</h5>
-<h5># of times @GoTransit tweets 'out of service': {{ words.oos}}</h5>
+{% include '_refund_widget.html' %}
+			<div id="whatisthis">
+        <hr />
+        {% include '_whatisthis.html' %}
+      </div>
+      <div id="tweets">
+        <hr />
+        {% include '_tweets.html' %}
+      </div>
 
 {% endblock %}
