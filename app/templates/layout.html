@@ -193,7 +193,7 @@
             $.get('/api/go/stoptimes/' + $('#depart_station').val() + '/' + travel_dow, function(r){
               $('#depart_time').append('<option value="" selected disabled>Select Departure Time</option>');
               $.each(r.times, function(i, e){
-                $('#depart_time').append('<option value="' + e.departure_time + '">' + e.departure_time.slice(0,-3) + '</option>');
+                $('#depart_time').append('<option value="' + e.departure_time.slice(0,-3) + '">' + e.departure_time.slice(0,-3) + '</option>');
               });
             });
             depart_station = $this.val();
@@ -208,7 +208,7 @@
             data: {
               'from_station': depart_station,
               'travel_date': travel_dow,
-              'travel_time': $('#depart_time').val()
+              'travel_time': $('#depart_time').val() +  ":00"
             },
             success: function(r){
               $('#arrival_station').append('<option value="" selected disabled>Select Your Arrival Station</option>');
@@ -218,12 +218,13 @@
             }
           });          
         });
-/*
-        $('#refund-form').on('submit', function(e){
-          var $this = $(this);
+
+        $('#refund-form').on('click', 'button', function(e){
           e.preventDefault();
 
-          var deptime = $('#depart_time').val().split('-')[2].indexOf('x') == -1 ? $('#depart_time').val().split('-')[2] : $('#depart_time').val().split('-')[2].replace(/([A-Za-z])\w+/g,'');
+          //var deptime = $('#depart_time').val().split('-')[2].indexOf('x') == -1 ? $('#depart_time').val().split('-')[2] : $('#depart_time').val().split('-')[2].replace(/([A-Za-z])\w+/g,'');
+
+          
           
           $.ajax({
             url: '/api/go/refund',
@@ -234,14 +235,15 @@
               'travel_date': travel_date,
               'from_station': $('#depart_station').val(),
               'to_station': $('#arrival_station').val(),
-              'travel_time': deptime
+              'travel_time': $('#depart_time').val()
             },
             success: function(r){
               console.log(r);
             }
           });
+          
         });
-*/
+
       });
     </script>
   </body>
