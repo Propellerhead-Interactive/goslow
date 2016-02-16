@@ -10,8 +10,7 @@
     <meta name="author" content="Propellerhead Labs">
 
     <title>Go!</title>
-
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
     {% assets "common_css" %}
       <link href="{{ ASSET_URL }}" rel="stylesheet">
@@ -108,6 +107,28 @@
         font-size: 6rem;
         color: #27AE60;
         text-shadow: 3px 5px #FFF;
+      }
+
+      .line__lakeshorewest {
+        background-color: #98002e;
+      }
+      .line__lakeshoreeast {
+        background-color: #ee3124;
+      }
+      .line__milton {
+        background-color: #f58025;
+      }
+      .line__kitchener {
+        background-color: #00853f;
+      }
+      .line__barrie {
+        background-color: #003768;
+      }
+      .line__stouffville {
+        background-color: #794400;
+      }
+      .line__richmondhill {
+        background-color: #009ac7;
       }
 
     </style>
@@ -243,6 +264,20 @@
             }
           });
           
+        });
+
+        $('#eligibleDelays').on('change', function(){
+          if(this.checked){
+            routelist.filter(function(item){
+              var time = item.values().length.trim().replace(/[<\/?code>hms]/gi, '');
+              var newtime = time.length > 5 ? time : "00:" + time;
+              var mom = moment(newtime, "hh:mm:ss");
+              var fifteenmins = moment("00:15:00", "hh:mm:ss");
+              if(mom >= fifteenmins) {
+                return item;
+              }
+            });
+          } else routelist.filter();
         });
 
       });
