@@ -1,54 +1,60 @@
 {% extends "layout.html" %}
 {% block body %}
-      
-			
-			<div class="row">
-					<div class="col-lg-6">
-			    		 <h1>History of Tardiness</h1>
-					 
-					 </div>
-							
-			</div>
-			<div class="panel panel-default">
-			                    <div class="panel-heading">
-			                <form class="form-inline" role="form" method="post" action="/history/search">
-			                    <div class="form-group">
-			                        <label class="sr-only" for="key-description">Line</label>
-			                        <input type="text" name="q" class="form-control" id="key-description" placeholder="Enter Line">
-			                    </div>
-			                    <button type="submit" class="btn btn-default">Search By Line</button>
-			                </form>
-			            </div>
-			                            <table class="table table-striped table-hover">
-			                <thead>
-			                    <tr>
-														<th>Day</th>
-                            <th>Line</th>
-                            <th>Time</th>
-                            <th>Minutes Late</th>
-                            <th>Reason / Excuse</th>
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                     <tr>
-														 {% for k in items %}
-														 			 <td>{{k.train_date.strftime("%Y-%m-%d")}} </td>
-			                            <td>{{k.route}} </td>
-			                            <td>
-			                                <code>{{k.train_time}}</code>
-			                            </td>
-			                            <td>
-			                                <code>{{k.delay_time}}</code>
-			                            </td>
-                                  <td>
-                                    {{k.message}}
-                                  </td>
-																	
-			                        </tr>
-															{% endfor %}
-			                                    </tbody>
-			            </table>
-			            </div>
-			
+
+
+<div class="row">
+	<div class="col-lg-6">
+		<h1>History of Tardiness</h1>
+
+	</div>
+
+</div>
+<div class="panel panel-default" id="history-list">
+	<div class="panel-heading">
+		<input class="search" placeholder="Search" />
+	</div>
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th><a href="#" class="sort" data-sort="date">Day</a></th>
+				<th><a href="#" class="sort" data-sort="line">Line</a></th>
+				<th><a href="#" class="sort" data-sort="time">Time</a></th>
+				<th><a href="#" class="sort" data-sort="length">Minutes Late</a></th>
+				<th><a href="#" class="sort" data-sort="excuse">Reason / Excuse</a></th>
+			</tr>
+		</thead>
+		<tbody class="list">
+			<tr>
+				{% for k in items %}
+				<td class="date">{{k.train_date.strftime("%Y-%m-%d")}} </td>
+				<td class="line">{{k.route}} </td>
+				<td class="time">
+					<code>{{k.train_time}}</code>
+				</td>
+				<td class="length">
+					<code>{{k.delay_time}}</code>
+				</td>
+				<td class="excuse">
+					{{k.message}}
+				</td>
+
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<nav><ul class="pagination"></ul></nav>
+</div>
+
+<script src="/static/js/list.min.js"></script>
+<script src="/static/js/list.pagination.min.js"></script>
+<script type="text/javascript">
+	var options = {
+    valueNames: [ 'date', 'line', 'time', 'length' , 'excuse'],
+    page: 50,
+    plugins: [ ListPagination({left: 1, right: 1, innerWindow: 1}) ]
+	};
+
+	var routelist = new List('history-list', options);
+</script>
 
 {% endblock %}

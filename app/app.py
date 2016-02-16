@@ -143,7 +143,7 @@ def hello():
 
 @app.route("/lateness")
 def lateness():
-    items = Status.select()
+    items = Status.select().order_by(Status.train_date.desc())
     return render_template("history.html", items=items)
 
 
