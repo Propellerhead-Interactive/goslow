@@ -126,7 +126,7 @@ def token_getter():
 
 @app.route("/")
 def hello():
-    since = date.fromtimestamp(float(Tweet.get(Tweet.id == 1).tweet_time)).strftime('%B %d, %Y')
+    #since = date.fromtimestamp(float(Tweet.get(Tweet.id == 1).tweet_time)).strftime('%B %d, %Y')
     words = {}
     words['delay'] = Tweet.select().where(Tweet.content.contains('delay')).count()
     words['late'] = Tweet.select().where(Tweet.content.contains('late')).count()
@@ -139,7 +139,7 @@ def hello():
     words['oos'] = Tweet.select().where(Tweet.content.contains('out of service')).count()
     words['ontime'] = Tweet.select().where(Tweet.content.contains('on time')).count()
     
-    return render_template("index.html", words=words, stops=refund(True), since=since)
+    return render_template("index.html", words=words, stops=refund(True))
 
 @app.route("/word_fun")
 def wordfun():
