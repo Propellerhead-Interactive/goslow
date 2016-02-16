@@ -23,9 +23,10 @@
 			                <thead>
 			                    <tr>
 														<th>Day</th>
-			                        <th>Line</th>
-			                        <th>Time</th>
-			                        <th>Minutes Late</th>
+                            <th>Line</th>
+                            <th>Time</th>
+                            <th>Minutes Late</th>
+                            <th>Reason / Excuse</th>
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -39,7 +40,9 @@
 			                            <td>
 			                                <code>{{k.delay_time}}</code>
 			                            </td>
-			                         
+                                  <td>
+                                    {{k.message}}
+                                  </td>
 																	
 			                        </tr>
 															{% endfor %}
