@@ -144,7 +144,7 @@ def hello():
 @app.route("/lateness")
 def lateness():
     items = Status.select()
-     return render_template("delays.html", items=items)
+    return render_template("history.html", items=items)
 
 
 @app.route("/word_fun")
