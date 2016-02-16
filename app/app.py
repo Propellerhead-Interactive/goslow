@@ -141,6 +141,12 @@ def hello():
     
     return render_template("index.html", words=words, stops=refund(True))
 
+@app.route("/lateness")
+def lateness():
+    items = Status.select()
+     return render_template("delays.html", items=items)
+
+
 @app.route("/word_fun")
 def wordfun():
     items = Utils.frequent_words(20)
